@@ -1,0 +1,151 @@
+---
+import Base from './Base.astro';
+import InnerPageHero from '../components/InnerPageHero.astro';
+import SectionHeading from '../components/SectionHeading.astro';
+import ProcessTimeline from '../components/ProcessTimeline.astro';
+import FAQAccordion from '../components/FAQAccordion.astro';
+import RelatedLinks from '../components/RelatedLinks.astro';
+import RegulatoryNotice from '../components/RegulatoryNotice.astro';
+import ContactBanner from '../components/ContactBanner.astro';
+import Button from '../components/Button.astro';
+import Icon from '../components/Icon.astro';
+import { business } from '../data/business';
+import { categories, getService, type Service } from '../data/services';
+import { getCountry } from '../data/countries';
+import studyVisaHero from '../assets/editorial/student-visa-assistance-india.webp';
+import ieltsHero from '../assets/editorial/ielts-preparation-student.webp';
+import visitorHero from '../assets/editorial/visitor-tourist-visa-planning.webp';
+import eligibilityHero from '../assets/editorial/immigration-eligibility-enquiry.webp';
+import prHero from '../assets/editorial/permanent-residency-information.webp';
+interface Props { service: Service }
+const { service: s } = Astro.props;
+const cat = categories.find((c) => c.id === s.category)!;
+const ctry = s.countries.map(getCountry).filter(Boolean);
+const rel = s.related.map(getService).filter(Boolean);
+const path = `/services/${s.slug}/`;
+const schema = { '@context': 'https://schema.org', '@type': 'Service', name: s.title, description: s.description, provider: { '@type': 'ProfessionalService', name: business.name, url: business.website }, areaServed: { '@type': 'Country', name: 'India' } };
+const heroImages = {
+  'study-visa': { image: studyVisaHero, alt: 'Illustrative Indian student reviewing university study options', social: '/social/student-visa-assistance-india.webp' },
+  'ielts-coaching': { image: ieltsHero, alt: 'Illustrative Indian learner practising English with headphones and a notebook', social: '/social/ielts-preparation-student.webp' },
+  'visitor-visa': { image: visitorHero, alt: 'Illustrative Indian family planning a short overseas visit', social: '/social/visitor-tourist-visa-planning.webp' },
+  'pr': { image: prHero, alt: 'Illustrative couple considering long-term relocation plans', social: undefined },
+  'eligibility-consultation': { image: eligibilityHero, alt: 'Illustrative applicant preparing questions for a general eligibility discussion', social: '/social/immigration-eligibility-enquiry.webp' },
+};
+const hero = heroImages[s.slug as keyof typeof heroImages];
+const waHref = s.whatsappText ? `${business.whatsapp}?text=${encodeURIComponent(s.whatsappText)}` : business.whatsapp;
+---
+<Base title={s.seoTitle ?? `${s.title} | NeoCAN Sri Ganganagar`} description={s.seoDescription ?? s.description} schema={schema} ogImage={hero?.social}>
+  <InnerPageHero eyebrow={cat.label} title={s.h1 ?? s.title} lead={s.tagline} crumbs={[{ label: 'Services', href: '/services/' }, { label: s.shortTitle, href: path }]} icon={s.icon} tone={s.tone} chips={[cat.label]} image={hero?.image} imageAlt={hero?.alt} cta={{ label: s.ctaLabel ?? 'Make an enquiry', href: '/contact/' }} cta2={{ label: 'Call now', href: `tel:${business.phone}` }} />
+
+  <section class="section">
+    <div class="container-x grid lg:grid-cols-[1fr_22rem] gap-12">
+      <div class="space-y-16 min-w-0">
+        <div class="reveal">
+          <SectionHeading eyebrow="Overview" title={s.overviewTitle ?? `About ${s.shortTitle.toLowerCase()} at NeoCAN`} />
+          <div class="prose-neo mt-5">{s.intro.map((p) => <p>{p}</p>)}</div>
+        </div>
+
+        <div class="reveal">
+          <h2 class="t-card !text-2xl">Who this may be relevant for</h2>
+          <ul class="ticks mt-5 grid sm:grid-cols-2 gap-x-8 gap-y-3">{s.relevantFor.map((r) => <li>{r}</li>)}</ul>
+        </div>
+
+        {s.stages && (
+          <div class="reveal">
+            <h2 class="t-card !text-2xl">{s.stagesTitle}</h2>
+            <div class="mt-6 grid sm:grid-cols-2 gap-5">{s.stages.map((st) => <div class="card p-5"><h3 class="font-display font-bold text-ink">{st.title}</h3><p class="mt-2 text-[.9375rem]">{st.text}</p>{st.points && <ul class="ticks mt-4 space-y-2 text-[.9375rem]">{st.points.map((pt) => <li>{pt}</li>)}</ul>}</div>)}</div>
+          </div>
+        )}
+
+        <div class="reveal">
+          <h2 class="t-card !text-2xl">What NeoCAN can assist with</h2>
+          <ul class="ticks mt-5 space-y-3">{s.assists.map((a) => <li>{a}</li>)}</ul>
+          {s.ask && (
+            <div class="mt-6 rounded-2xl bg-soft border border-line p-5">
+              <p class="font-display font-bold text-ink">{s.askTitle ?? 'Questions to ask Aman'}</p>
+              <ul class="mt-2 space-y-1.5 list-disc pl-5 text-[.9375rem]">{s.ask.map((q) => <li>{q}</li>)}</ul>
+            </div>
+          )}
+          {s.limits && (
+            <div class="mt-6 rounded-2xl bg-soft border border-line p-5">
+              <p class="font-display font-bold text-ink">{s.limitsTitle ?? 'What NeoCAN does not do'}</p>
+              <ul class="mt-2 space-y-1.5 list-disc pl-5 text-[.9375rem]">{s.limits.map((l) => <li>{l}</li>)}</ul>
+            </div>
+          )}
+          {s.includes && (
+            <div class="mt-6 rounded-2xl bg-soft border border-line p-5">
+              <p class="font-display font-bold text-ink">Also covered on this page</p>
+              <ul class="mt-2 flex flex-wrap gap-2">{s.includes.map((i) => <li class="text-sm font-semibold bg-white border border-line rounded-full px-3 py-1 text-navy">{i}</li>)}</ul>
+            </div>
+          )}
+        </div>
+
+        {s.extraSections && s.extraSections.map((x) => (
+          <div class="reveal">
+            <h2 class="t-card !text-2xl">{x.title}</h2>
+            <div class="prose-neo mt-4">{x.paragraphs?.map((t) => <p>{t}</p>)}</div>
+            {x.links && <div class="mt-5 flex flex-wrap gap-3">{x.links.map((l) => <Button href={l.href} external={l.external} variant="secondary" arrow>{l.label}{l.external && <span class="sr-only"> (opens in a new tab)</span>}</Button>)}</div>}
+          </div>
+        ))}
+
+        <div class="reveal rounded-2xl bg-mist border border-line p-6 sm:p-8">
+          <h2 class="t-card !text-2xl">{s.startTitle ?? `How to start a ${s.shortTitle.toLowerCase()} enquiry`}</h2>
+          <p class="mt-3">{s.startText ?? "Tell Aman Maan what you hope to do, the destination or institution involved, and any date that matters. He is NeoCAN's primary contact: he listens to your requirements, coordinates the appropriate service discussion and oversees follow-up. The service details below explain the general scope; they are not a personal eligibility decision."}</p>
+          <div class="mt-5 flex flex-wrap gap-3">{s.whatsappText && <Button href={waHref} external variant="primary" icon="whatsapp">{s.whatsappLabel ?? 'WhatsApp your enquiry'}</Button>}<Button href="/consultation/" variant="secondary" arrow>Prepare for a consultation</Button></div>
+        </div>
+
+        <div class="reveal">
+          <h2 class="t-card !text-2xl mb-8">{s.processTitle ?? 'General process overview'}</h2>
+          <ProcessTimeline steps={s.process} />
+        </div>
+
+        <div class="reveal">
+          <h2 class="t-card !text-2xl">{s.documentsTitle ?? 'Documents commonly involved'}</h2>
+          {s.documentsNote ? <p class="mt-3 text-[.9375rem]">{s.documentsNote}</p> : <p class="mt-3 text-[.9375rem]">A general guide only. Requirements differ by country and category, and the official authority's list always applies.</p>}
+          <ul class="ticks mt-5 space-y-3">{s.documents.map((d) => <li>{d}</li>)}</ul>
+        </div>
+
+        {ctry.length > 0 && (
+          <div class="reveal">
+            <RelatedLinks title="Relevant destination countries" links={ctry.map((c) => ({ label: c!.name, href: `/countries/${c!.slug}/` }))} />
+          </div>
+        )}
+
+        {s.guides && (
+          <div class="reveal">
+            {s.destinationNote && <p class="mb-5 text-[.9375rem]">{s.destinationNote}</p>}
+            <RelatedLinks title="Helpful guides" links={s.guides} />
+          </div>
+        )}
+
+        <div class="reveal">
+          <h2 class="t-card !text-2xl mb-5">Common questions</h2>
+          <FAQAccordion items={s.faqs} schema />
+          {s.faqCta && <div class="mt-8"><Button href={s.faqCta.href} variant="primary" arrow>{s.faqCta.label}</Button></div>}
+        </div>
+
+        {s.regulatedNote && <RegulatoryNotice />}
+        <RelatedLinks title="Related services" links={rel.map((r) => ({ label: r!.title, href: `/services/${r!.slug}/` }))} />
+      </div>
+
+      <aside class="lg:sticky lg:top-28 self-start space-y-5">
+        <div class="rounded-2xl bg-navy text-white p-6 on-dark">
+          <h2 class="font-display font-bold text-xl !text-white">Speak with NeoCAN</h2>
+          <p class="mt-2 text-sm text-slate-300">Aman Maan coordinates enquiries and consultations.</p>
+          <div class="mt-5 space-y-3">
+            <Button href={waHref} external variant="primary" class="w-full" icon="whatsapp">WhatsApp</Button>
+            <Button href={`tel:${business.phone}`} variant="white" class="w-full" icon="phone">{business.phoneDisplay}</Button>
+            <Button href="/consultation/" variant="outline-light" class="w-full">Consultation details</Button>
+          </div>
+        </div>
+        <div class="card p-5 text-sm space-y-2">
+          <p class="font-display font-bold text-ink flex items-center gap-2"><Icon name="pin" size={18} class="text-brand-strong" />Office</p>
+          <p>{business.address.full}</p>
+          <p class="font-display font-bold text-ink flex items-center gap-2 pt-2"><Icon name="clock" size={18} class="text-brand-strong" />Hours</p>
+          <p>{business.hours}</p>
+        </div>
+      </aside>
+    </div>
+  </section>
+  <ContactBanner />
+</Base>

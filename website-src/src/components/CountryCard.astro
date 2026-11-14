@@ -1,0 +1,31 @@
+---
+import Icon from './Icon.astro';
+import { Image } from 'astro:assets';
+import canadaHero from '../assets/editorial/canada-toronto-destination.webp';
+import ukHero from '../assets/editorial/united-kingdom-london-destination.webp';
+import nzHero from '../assets/editorial/new-zealand-queenstown-destination.webp';
+import usaHero from '../assets/editorial/united-states-new-york-destination.webp';
+import { getService } from '../data/services';
+import type { Country } from '../data/countries';
+interface Props { country: Country; large?: boolean }
+const { country: c, large = false } = Astro.props;
+const bg = { navy: 'from-navy-deep to-navy-mid', red: 'from-brand-dark to-brand', light: 'from-navy to-[#2a4f93]' }[c.tone];
+const names = c.services.slice(0, 3).map((s) => getService(s)?.shortTitle).filter(Boolean);
+const image = ({ canada: canadaHero, uk: ukHero, 'new-zealand': nzHero, usa: usaHero } as Record<string, typeof canadaHero>)[c.slug];
+---
+<a href={`/countries/${c.slug}/`} class="card group overflow-hidden flex flex-col h-full" data-country={c.name.toLowerCase()} data-group={c.group}>
+  <div class={`relative bg-gradient-to-br ${bg} text-white ${large ? 'h-56' : 'h-40'} p-6 flex flex-col justify-between overflow-hidden`}>
+    {image && <Image src={image} alt={`Illustrative ${c.name} destination view`} widths={[360, 540, 720]} sizes="(min-width: 1024px) 380px, (min-width: 640px) 50vw, 100vw" format="webp" quality={78} loading="lazy" decoding="async" class="absolute inset-0 w-full h-full object-cover" />}
+    {image && <div class="absolute inset-0 bg-gradient-to-t from-navy-deep/85 via-navy-deep/20 to-transparent" aria-hidden="true"></div>}
+    <div class="absolute -right-8 -top-8 w-44 h-44 rounded-full border border-white/20"></div>
+    <div class="absolute -right-2 top-4 w-28 h-28 rounded-full border border-white/15"></div>
+    <div class="absolute inset-0 dots opacity-30" aria-hidden="true"></div>
+    <span class="relative inline-grid place-items-center w-12 h-12 rounded-xl bg-white/15 ring-1 ring-white/30 font-display font-extrabold tracking-wide" aria-hidden="true">{c.code}</span>
+    <p class="relative font-display font-extrabold text-2xl">{c.name}</p>
+  </div>
+  <div class="p-6 flex flex-col flex-1">
+    <p class="text-[.9375rem] flex-1">{c.blurb}</p>
+    <ul class="mt-4 flex flex-wrap gap-2">{names.map((n) => <li class="text-xs font-semibold bg-mist text-navy rounded-full px-3 py-1">{n}</li>)}</ul>
+    <span class="link-arrow mt-5">Explore {c.name}<Icon name="arrow" size={18} /></span>
+  </div>
+</a>

@@ -1,0 +1,44 @@
+---
+import Base from './Base.astro';
+import InnerPageHero from '../components/InnerPageHero.astro';
+import SectionHeading from '../components/SectionHeading.astro';
+import FAQAccordion from '../components/FAQAccordion.astro';
+import RelatedLinks from '../components/RelatedLinks.astro';
+import RegulatoryNotice from '../components/RegulatoryNotice.astro';
+import ContactBanner from '../components/ContactBanner.astro';
+import Icon from '../components/Icon.astro';
+import { getCountry } from '../data/countries';
+import { getService } from '../data/services';
+import { crossovers, type Crossover } from '../data/crossovers';
+interface Props { x: Crossover }
+const { x } = Astro.props;
+const country = getCountry(x.country)!;
+const svc = getService(x.service)!;
+const siblings = crossovers.filter((o) => o.country === x.country && o.slug !== x.slug);
+const path = `/countries/${x.country}/${x.slug}/`;
+---
+<Base title={x.title} description={x.description}>
+  <InnerPageHero eyebrow={`${country.name} · ${svc.shortTitle}`} title={x.h1} lead={x.intent} crumbs={[{ label: 'Countries', href: '/countries/' }, { label: country.name, href: `/countries/${country.slug}/` }, { label: svc.shortTitle, href: path }]} icon={svc.icon} tone={country.tone} chips={[country.name, svc.shortTitle]} cta={{ label: 'Discuss your plans', href: '/consultation/' }} />
+  <section class="section">
+    <div class="container-x grid lg:grid-cols-2 gap-12">
+      <div class="reveal"><h2 class="t-card !text-2xl">Scope of assistance</h2><ul class="ticks mt-5 space-y-3">{x.scope.map((s) => <li>{s}</li>)}</ul></div>
+      <div class="reveal"><h2 class="t-card !text-2xl">Documents commonly involved</h2><p class="mt-3 text-[.9375rem]">A general list. The official authority's requirements always take priority.</p><ul class="ticks mt-5 space-y-3">{x.requirements.map((s) => <li>{s}</li>)}</ul></div>
+    </div>
+  </section>
+  <section class="section section-soft">
+    <div class="container-x grid lg:grid-cols-2 gap-12 items-start">
+      <div>
+        <SectionHeading eyebrow="Official resource" title="Check the current rules" lead={x.notes} />
+        <a class="card hover mt-6 inline-flex items-center gap-3 px-5 py-4 font-display font-semibold text-navy" href={x.official.url} target="_blank" rel="noopener noreferrer">{x.official.label}<Icon name="arrow" size={18} class="text-brand-strong" /></a>
+        <div class="mt-6"><RegulatoryNotice kind={country.regulated} /></div>
+      </div>
+      <div><h2 class="t-card !text-2xl mb-5">Questions</h2><FAQAccordion items={x.faqs} schema /></div>
+    </div>
+  </section>
+  <section class="section">
+    <div class="container-x space-y-10">
+      <RelatedLinks title="Related country and service pages" links={[{ label: `All ${country.name} guidance`, href: `/countries/${country.slug}/` }, { label: svc.title, href: `/services/${svc.slug}/` }, ...siblings.map((o) => ({ label: o.h1.split(':')[0], href: `/countries/${o.country}/${o.slug}/` }))]} />
+    </div>
+  </section>
+  <ContactBanner />
+</Base>

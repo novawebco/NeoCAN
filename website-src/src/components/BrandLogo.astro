@@ -1,0 +1,40 @@
+---
+import { Image } from 'astro:assets';
+import headerLogo from '../assets/branding/neocan-logo-header.webp';
+import footerLogo from '../assets/branding/neocan-logo-footer.webp';
+
+interface Props {
+  placement?: 'header' | 'footer';
+  width?: number;
+  mobileWidth?: number;
+  priority?: boolean;
+  class?: string;
+}
+
+const { placement = 'header', width = 220, mobileWidth = 170, priority = false, class: className = '' } = Astro.props;
+const source = placement === 'footer' ? footerLogo : headerLogo;
+---
+<a
+  href="/"
+  aria-label="NeoCAN Global Migration Consulting home"
+  class:list={['brand-logo', `brand-logo--${placement}`, className]}
+  style={`--logo-width:${width}px;--logo-mobile-width:${mobileWidth}px`}
+>
+  <Image
+    src={source}
+    width={width * 2}
+    alt="NeoCAN Global Migration Consulting"
+    loading={priority ? 'eager' : 'lazy'}
+    fetchpriority={priority ? 'high' : 'auto'}
+    decoding="async"
+    class="block w-full h-auto"
+  />
+</a>
+
+<style>
+  .brand-logo { display: inline-block; width: var(--logo-width); max-width: 100%; flex: none; line-height: 0; }
+  .brand-logo--footer { padding: 10px 12px; background: #fff; border-radius: 8px; box-sizing: content-box; }
+  @media (max-width: 639px) {
+    .brand-logo { width: var(--logo-mobile-width); }
+  }
+</style>

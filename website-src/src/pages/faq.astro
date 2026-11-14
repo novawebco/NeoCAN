@@ -1,0 +1,32 @@
+---
+import PageLayout from '../layouts/PageLayout.astro';
+import FAQAccordion from '../components/FAQAccordion.astro';
+import RelatedLinks from '../components/RelatedLinks.astro';
+import { faqGroups } from '../data/faqs';
+const all = faqGroups.flatMap((g) => g.items);
+const ld = { '@context': 'https://schema.org', '@type': 'FAQPage', mainEntity: all.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })) };
+---
+<PageLayout title="NeoCAN FAQs: Visa, IELTS and PR Questions Answered" description="Plain answers on student visa, visitor visa, IELTS, PR, destinations, cost and how to speak to Aman Maan at NeoCAN in Sri Ganganagar." h1="Questions about NeoCAN, answered plainly" eyebrow="FAQ" lead="Clear answers about what NeoCAN does, and what it does not do." crumbs={[{ label: 'FAQ', href: '/faq/' }]} icon="info" chips={faqGroups.map((g) => g.label)} schema={ld}>
+  <section class="section">
+    <div class="container-x grid lg:grid-cols-[14rem_1fr] gap-12">
+      <nav aria-label="FAQ categories" class="lg:sticky lg:top-28 self-start min-w-0">
+        <ul class="flex lg:block gap-2 overflow-x-auto">
+          <li><button type="button" class="fchip btn btn-secondary !min-h-[2.5rem] !py-1.5 !text-sm w-full lg:mb-2" data-g="all" aria-pressed="true">All</button></li>
+          {faqGroups.map((g) => <li><button type="button" class="fchip btn btn-outline !min-h-[2.5rem] !py-1.5 !text-sm w-full lg:mb-2 whitespace-nowrap" data-g={g.id} aria-pressed="false">{g.label}</button></li>)}
+        </ul>
+      </nav>
+      <div class="space-y-12 max-w-3xl min-w-0">
+        {faqGroups.map((g) => (<section data-fg={g.id} aria-labelledby={`h-${g.id}`}><h2 id={`h-${g.id}`} class="t-card !text-2xl mb-5">{g.label}</h2><FAQAccordion items={g.items} /></section>))}
+        <RelatedLinks title="Still have questions?" links={[{ label: 'Contact us', href: '/contact/' }, { label: 'Consultation', href: '/consultation/' }, { label: 'Services', href: '/services/' }]} />
+      </div>
+    </div>
+  </section>
+  <script>
+    const chips = Array.from(document.querySelectorAll<HTMLButtonElement>('.fchip'));
+    const secs = Array.from(document.querySelectorAll<HTMLElement>('[data-fg]'));
+    chips.forEach((b) => b.addEventListener('click', () => {
+      chips.forEach((x) => { const on = x === b; x.setAttribute('aria-pressed', String(on)); x.classList.toggle('btn-secondary', on); x.classList.toggle('btn-outline', !on); });
+      secs.forEach((s) => (s.hidden = b.dataset.g !== 'all' && s.dataset.fg !== b.dataset.g));
+    }));
+  </script>
+</PageLayout>

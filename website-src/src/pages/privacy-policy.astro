@@ -1,0 +1,22 @@
+---
+import LegalLayout from '../layouts/LegalLayout.astro';
+import { business } from '../data/business';
+const toc = [{ id: 'who', label: 'Who we are' }, { id: 'collect', label: 'Information we collect' }, { id: 'forms', label: 'Online forms' }, { id: 'use', label: 'How we use it' }, { id: 'share', label: 'Third-party services' }, { id: 'rights', label: 'Your choices' }, { id: 'contact', label: 'Contact' }];
+---
+<LegalLayout title="Privacy Policy" description="How NeoCAN Global Migration Consulting handles personal information you share when you enquire." toc={toc} path="/privacy-policy/">
+  <h2 id="who">Who we are</h2>
+  <p>This website is operated by {business.legalName} (CIN {business.cin}), {business.address.full}.</p>
+  <h2 id="collect">Information we collect</h2>
+  <p>When you contact us we may collect your name, phone number, email address, the service you are interested in and any details you choose to share about your plans or documents.</p>
+  <p>You can contact NeoCAN by telephone, WhatsApp or email. Information you give in a call or message is handled by the NeoCAN team. [How long call notes and messages are kept, and who can access them, to be confirmed by NeoCAN and reviewed by a legal professional.]</p>
+  <h2 id="forms">Online forms</h2>
+  <p>The enquiry forms shown on this website are not active and do not collect or send information. Please use telephone, WhatsApp or email instead.</p>
+  <h2 id="use">How we use it</h2>
+  <p>We use your information to respond to enquiries, coordinate consultations, and provide the services you request.</p>
+  <h2 id="share">Third-party services</h2>
+  <p>We do not sell personal information. This website itself does not load analytics or advertising trackers. Some pages embed a Google Map; loading it can share technical information such as your IP address and browser details with Google, under Google’s own privacy policy. WhatsApp links open the WhatsApp service, which handles your messages under its own terms. Links to official government and other websites are provided for convenience and those sites have their own policies. [Any other service providers, such as email or phone systems, to be listed after NeoCAN confirms them and a legal review.]</p>
+  <h2 id="rights">Your choices</h2>
+  <p>You may ask us to access, correct or delete the information you have given us, subject to applicable law. [Retention periods and legal basis to be confirmed.]</p>
+  <h2 id="contact">Contact</h2>
+  <p>Email <a href={`mailto:${business.email}`}>{business.email}</a>.</p>
+</LegalLayout>

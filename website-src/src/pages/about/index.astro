@@ -1,0 +1,85 @@
+---
+import PageLayout from '../../layouts/PageLayout.astro';
+import { Image } from 'astro:assets';
+import aboutVisual from '../../assets/editorial/neocan-about-international-planning.webp';
+import SectionHeading from '../../components/SectionHeading.astro';
+import Illustration from '../../components/Illustration.astro';
+import FeatureCard from '../../components/FeatureCard.astro';
+import ProcessTimeline from '../../components/ProcessTimeline.astro';
+import FAQAccordion from '../../components/FAQAccordion.astro';
+import RelatedLinks from '../../components/RelatedLinks.astro';
+import RegulatoryNotice from '../../components/RegulatoryNotice.astro';
+import Button from '../../components/Button.astro';
+import { business } from '../../data/business';
+import { categories } from '../../data/services';
+import { faqGroups } from '../../data/faqs';
+const steps = [
+  { title: 'Enquiry', text: 'You contact us by phone, WhatsApp, email or in person.' },
+  { title: 'Discussion', text: 'We discuss your goals and background.' },
+  { title: 'Guidance', text: 'We explain services, steps and documents.' },
+  { title: 'Follow-up', text: 'We agree on next steps together.' },
+];
+---
+<PageLayout title="About NeoCAN and Aman Maan | Sri Ganganagar" description="Learn about NeoCAN's Sri Ganganagar office and the direct enquiry process overseen by Aman Maan." h1="About NeoCAN" eyebrow="About us" lead="Direct client communication and a clear approach to student visa, visitor visa, IELTS and PR enquiries." crumbs={[{ label: 'About Us', href: '/about/' }]} icon="building" chips={['Sri Ganganagar', 'Aman Maan']} cta={{ label: 'Contact us', href: '/contact/' }}>
+  <section class="section">
+    <div class="container-x grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+      <div class="reveal">
+        <SectionHeading eyebrow="Company introduction" title="Honest guidance, clearly explained" />
+        <div class="prose-neo mt-5">
+          <p>NeoCAN Global Migration Consulting discusses student visa, visitor and tourist visa, IELTS, and other approved priority enquiries. The precise scope and destination availability are confirmed with each client.</p>
+          <p>Our office is at {business.address.full}. You can contact us from another city to ask about available phone or online discussions. We also offer English-test coaching.</p>
+        </div>
+      </div>
+      <div class="reveal"><Image src={aboutVisual} alt="Illustrative international planning workspace; not the NeoCAN office" widths={[480, 720, 960, 1200]} sizes="(min-width: 1024px) 550px, calc(100vw - 32px)" format="webp" quality={80} loading="lazy" decoding="async" class="block w-full h-auto aspect-[5/4] object-cover rounded-2xl shadow-lift" /></div>
+    </div>
+  </section>
+
+  <section class="section section-soft">
+    <div class="container-x">
+      <SectionHeading eyebrow="Mission & approach" title="How we work" align="center" />
+      <div class="mt-12 grid md:grid-cols-3 gap-6">
+        <FeatureCard icon="message" title="Talk first" text="We begin by understanding your goals before suggesting any service." />
+        <FeatureCard icon="shield" title="Honest limits" text="We provide general guidance and document support, not regulated legal advice, and we never promise outcomes." />
+        <FeatureCard icon="file" title="Organised files" text="We help you keep documents complete and consistent." />
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container-x">
+        <SectionHeading eyebrow="Enquiries" title="Defined enquiry areas" />
+      <ul class="mt-10 grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+        {categories.map((c) => <li><a class="card hover h-full p-6 block" href={`/services/#${c.id}`}><h3 class="t-card">{c.label}</h3><p class="mt-2 text-[.9375rem]">{c.blurb}</p></a></li>)}
+      </ul>
+    </div>
+  </section>
+
+  <section class="section section-mist">
+    <div class="container-x grid lg:grid-cols-2 gap-12 items-center">
+      <div>
+        <SectionHeading eyebrow="Operations" title="Day-to-day oversight by Aman Maan" lead="Aman Maan is the primary client-facing representative. He speaks with clients, listens to their requirements, coordinates consultations and service discussions, and supervises daily operations." />
+        <div class="mt-6"><Button href="/about/aman-maan/" variant="secondary" arrow>About Aman Maan</Button></div>
+      </div>
+      <div class="card p-6 sm:p-8">
+        <h3 class="t-card">Registered business details</h3>
+        <dl class="mt-4 text-[.9375rem] space-y-3">
+          <div><dt class="font-semibold text-ink">Legal name</dt><dd>{business.legalName}</dd></div>
+          <div><dt class="font-semibold text-ink">CIN</dt><dd>{business.cin}</dd></div>
+          <div><dt class="font-semibold text-ink">Address</dt><dd>{business.address.full}</dd></div>
+          <div><dt class="font-semibold text-ink">Hours</dt><dd>{business.hours}</dd></div>
+        </dl>
+        <a href={business.maps} target="_blank" rel="noopener noreferrer" class="link-arrow mt-5">Google Maps directions →</a>
+        <p class="mt-4 text-sm">Read customer experiences on NeoCAN's <a href={business.maps} target="_blank" rel="noopener noreferrer" class="text-brand-strong underline">Google listing</a>.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section"><div class="container-x"><SectionHeading align="center" eyebrow="Client enquiry process" title="What happens when you get in touch" /><div class="mt-12"><ProcessTimeline steps={steps} /></div></div></section>
+
+  <section class="section section-soft">
+    <div class="container-x grid lg:grid-cols-2 gap-12">
+      <div class="space-y-8"><RegulatoryNotice /><RelatedLinks title="Explore" links={[{ label: 'Services', href: '/services/' }, { label: 'Countries', href: '/countries/' }, { label: 'Consultation', href: '/consultation/' }]} /></div>
+      <div><h2 class="t-card !text-2xl mb-5">About NeoCAN: FAQ</h2><FAQAccordion items={faqGroups[0].items} /></div>
+    </div>
+  </section>
+</PageLayout>

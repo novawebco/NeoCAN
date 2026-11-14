@@ -1,0 +1,18 @@
+# Local research and private records
+.claude/
+audit/
+website/
+
+# Local browser review artifacts and editor settings
+website-src/.vscode/
+website-src/hero-*-qa.png
+
+# Generated output and local settings
+**/node_modules/
+**/.astro/
+**/dist/
+**/.env
+**/.env.*
+**/npm-debug.log*
+**/yarn-debug.log*
+**/yarn-error.log*

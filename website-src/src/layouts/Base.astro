@@ -1,0 +1,28 @@
+---
+import BaseHead from '../components/BaseHead.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import '../styles/global.css';
+
+interface Props { title: string; description: string; canonical?: string; ogImage?: string; schema?: object | object[] }
+const { title, description, canonical, ogImage, schema } = Astro.props;
+---
+<!doctype html>
+<html lang="en">
+  <head><BaseHead title={title} description={description} canonical={canonical} ogImage={ogImage} schema={schema} /></head>
+  <body class="bg-white text-body font-sans antialiased">
+    <Header />
+    <main id="main" tabindex="-1"><slot /></main>
+    <Footer />
+    <script>
+      // Controlled section reveals (progressive enhancement; respects reduced motion).
+      const els = document.querySelectorAll('.reveal');
+      if (matchMedia('(prefers-reduced-motion: reduce)').matches || !('IntersectionObserver' in window)) {
+        els.forEach((e) => e.classList.add('in'));
+      } else {
+        const io = new IntersectionObserver((entries) => entries.forEach((en) => { if (en.isIntersecting) { en.target.classList.add('in'); io.unobserve(en.target); } }), { threshold: 0.12 });
+        els.forEach((e) => io.observe(e));
+      }
+    </script>
+  </body>
+</html>

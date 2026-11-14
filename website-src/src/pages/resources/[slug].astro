@@ -1,0 +1,7 @@
+---
+import ResourceLayout from '../../layouts/ResourceLayout.astro';
+import { resources } from '../../data/resources';
+export function getStaticPaths() { return resources.map((r) => ({ params: { slug: r.slug }, props: { r } })); }
+const { r } = Astro.props;
+---
+<ResourceLayout r={r} />

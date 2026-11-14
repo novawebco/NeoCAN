@@ -1,0 +1,29 @@
+---
+// noindex during development. REMOVE only on explicit production authorization.
+interface Props { title: string; description: string; canonical?: string; ogImage?: string; ogType?: string; schema?: object | object[] }
+const { title, description, canonical, ogImage = '/og-neocan.png', ogType = 'website', schema } = Astro.props;
+const siteUrl = 'https://neocan.net';
+const path = canonical ?? Astro.url.pathname;
+const canonicalUrl = path.startsWith('http') ? path : siteUrl + path;
+const ogImageUrl = ogImage.startsWith('http') ? ogImage : siteUrl + ogImage;
+---
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="robots" content="noindex, nofollow" />
+<meta name="theme-color" content="#071f49" />
+<title>{title}</title>
+<meta name="description" content={description} />
+<link rel="canonical" href={canonicalUrl} />
+<meta property="og:title" content={title} />
+<meta property="og:description" content={description} />
+<meta property="og:url" content={canonicalUrl} />
+<meta property="og:type" content={ogType} />
+<meta property="og:image" content={ogImageUrl} />
+<meta property="og:site_name" content="NeoCAN Global Migration Consulting" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content={title} />
+<meta name="twitter:description" content={description} />
+<meta name="twitter:image" content={ogImageUrl} />
+<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+{schema && <script type="application/ld+json" set:html={JSON.stringify(Array.isArray(schema) ? schema : [schema])} />}
+<script is:inline>document.documentElement.classList.add('js');</script>

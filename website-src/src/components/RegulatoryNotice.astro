@@ -1,0 +1,11 @@
+---
+import Icon from './Icon.astro';
+import { regulatedNotices, type RegulatedKind } from '../data/countries';
+interface Props { kind?: RegulatedKind; text?: string; title?: string }
+const { kind = null, text, title = 'Important notice' } = Astro.props;
+const body = text ?? (kind ? regulatedNotices[kind] : 'NeoCAN provides general guidance and helps you organise documents. Regulated immigration advice must come from a person authorised in the destination country, and no visa outcome can be guaranteed.');
+---
+<div class="flex gap-4 rounded-2xl border border-amber-300 bg-amber-50 p-5 text-amber-950" role="note">
+  <Icon name="info" size={24} class="flex-none mt-0.5 text-amber-700" />
+  <div><p class="font-display font-bold">{title}</p><p class="mt-1 text-[.9375rem]">{body}</p></div>
+</div>

@@ -1,0 +1,14 @@
+---
+import LegalLayout from '../layouts/LegalLayout.astro';
+const toc = [{ id: 'general', label: 'General information' }, { id: 'not-advice', label: 'Not legal advice' }, { id: 'not-offered', label: 'Services not advertised' }, { id: 'verify', label: 'Verify with official sources' }];
+---
+<LegalLayout title="Immigration Disclaimer" description="Important limits on the guidance NeoCAN provides: no guaranteed visa outcomes, no regulated immigration advice, and how to check official sources." toc={toc} path="/disclaimer/">
+  <h2 id="general">General information</h2>
+  <p>Content on this website is general information and may not reflect current rules.</p>
+  <h2 id="not-advice">Not legal advice</h2>
+  <p>This website provides general information, not legal advice, and NeoCAN is not a law firm. For advice on your situation, consult a lawyer or adviser who is authorised to give immigration advice for your destination. NeoCAN offers PR assistance through Aman Maan. For Canadian immigration matters, NeoCAN works with a Regulated Canadian Immigration Consultant (RCIC) partner. Regulated immigration advice or representation in any country must come from a person authorised there.</p>
+  <h2 id="not-offered">Services not advertised</h2>
+  <p>This website does not advertise overseas job placement or recruitment, citizenship advice, asylum assistance or visa appeal representation.</p>
+  <h2 id="verify">Verify with official sources</h2>
+  <p>Immigration rules change. Always confirm requirements on the official government website for your destination.</p>
+</LegalLayout>

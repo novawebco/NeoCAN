@@ -1,0 +1,152 @@
+---
+import { business } from '../data/business';
+import { reviews } from '../data/reviews';
+import SectionHeading from './SectionHeading.astro';
+import Button from './Button.astro';
+---
+<section class="section hero-bg on-dark" id="google-reviews">
+  <div class="container-x">
+    <div class="flex flex-wrap items-end justify-between gap-6">
+      <SectionHeading eyebrow="Google Reviews" title="NeoCAN Client Reviews" light />
+      <div class="gr-controls" role="group" aria-label="Review carousel controls">
+        <button type="button" class="gr-btn" data-gr-prev aria-label="Previous reviews"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button>
+        <button type="button" class="gr-btn" data-gr-next aria-label="Next reviews"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg></button>
+      </div>
+    </div>
+
+    <div class="gr" data-gr role="region" aria-roledescription="carousel" aria-label="Google reviews">
+      <ul class="gr-track" data-gr-track tabindex="0" aria-label="Reviews; use left and right arrow keys to scroll">
+        {reviews.map((review, i) => (
+          <li class="gr-slide" aria-label={`Review ${i + 1} of ${reviews.length}`}>
+            <figure class="gr-card">
+              <svg class="gr-quote" width="34" height="34" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M9.5 6C6.5 7 4 9.8 4 14v4h6v-6H7c.2-2 1.4-3.3 3.3-4L9.5 6zm9 0c-3 1-5.5 3.8-5.5 8v4h6v-6h-3c.2-2 1.4-3.3 3.3-4L18.5 6z"/></svg>
+              <p class="gr-stars" role="img" aria-label={`${review.stars} out of 5 stars`}><span aria-hidden="true">{'★'.repeat(review.stars)}{'☆'.repeat(5 - review.stars)}</span></p>
+              <blockquote class="gr-text">{review.quote}</blockquote>
+              <figcaption class="gr-meta">
+                <span class="gr-name">{review.name}</span>
+                <span class="gr-src"><svg width="14" height="14" viewBox="0 0 24 24" aria-hidden="true"><path fill="#4285F4" d="M22 12.2c0-.7-.1-1.4-.2-2H12v3.8h5.6a4.8 4.8 0 0 1-2.1 3.1v2.6h3.4c2-1.8 3.1-4.5 3.1-7.5z"/><path fill="#34A853" d="M12 22c2.8 0 5.2-.9 6.9-2.5l-3.4-2.6c-.9.6-2.1 1-3.5 1-2.7 0-5-1.8-5.8-4.3H2.7v2.7A10 10 0 0 0 12 22z"/><path fill="#FBBC05" d="M6.2 13.6a6 6 0 0 1 0-3.8V7.1H2.7a10 10 0 0 0 0 9.2l3.5-2.7z"/><path fill="#EA4335" d="M12 5.9c1.5 0 2.9.5 4 1.6l3-3A10 10 0 0 0 2.7 7.1l3.5 2.7C7 7.7 9.3 5.9 12 5.9z"/></svg>Google review</span>
+              </figcaption>
+            </figure>
+          </li>
+        ))}
+      </ul>
+    </div>
+
+    <div class="gr-footer">
+      <div class="gr-dots" data-gr-dots role="group" aria-label="Choose review position"></div>
+      <button type="button" class="gr-pause" data-gr-toggle aria-pressed="false"><span data-gr-toggle-label>Pause auto-scroll</span></button>
+      <Button href={business.googleListing} external variant="white" arrow class="gr-cta">View Google Reviews<span class="sr-only"> (opens in a new tab)</span></Button>
+    </div>
+  </div>
+</section>
+
+<style>
+  .gr { margin-top: 2rem; }
+  .gr-track {
+    display: flex; gap: 1.25rem; list-style: none; margin: 0; padding: .5rem .25rem 1.25rem;
+    overflow-x: auto; scroll-snap-type: x mandatory; scroll-padding-inline: .25rem; scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch; overscroll-behavior-x: contain; scrollbar-width: none;
+  }
+  .gr-track::-webkit-scrollbar { display: none; }
+  .gr-slide { flex: 0 0 100%; scroll-snap-align: start; min-width: 0; display: flex; }
+  @media (min-width: 768px) { .gr-slide { flex-basis: calc((100% - 1.25rem) / 2); } }
+  @media (min-width: 1100px) { .gr-slide { flex-basis: calc((100% - 2.5rem) / 3); } }
+  .gr-card {
+    position: relative; margin: 0; width: 100%; display: flex; flex-direction: column;
+    min-height: 14rem; padding: 1.75rem; background: #fff; color: var(--color-body);
+    border-radius: 1.25rem; border-top: 4px solid var(--color-brand-strong); box-shadow: var(--shadow-lift);
+  }
+  .gr-quote { position: absolute; top: 1.25rem; right: 1.4rem; color: var(--color-mist); }
+  .gr-stars { margin: 0; color: #b45309; letter-spacing: .12em; font-size: 1.15rem; line-height: 1; }
+  .gr-text { margin: 1rem 0 0; flex: 1; color: var(--color-ink); font-size: 1.0625rem; line-height: 1.7; overflow-wrap: anywhere; }
+  .gr-meta { display: flex; align-items: center; justify-content: space-between; gap: .75rem; flex-wrap: wrap; margin-top: 1.5rem; padding-top: 1rem; border-top: 1px solid var(--color-line); }
+  .gr-name { font-family: var(--font-display); font-weight: 700; color: var(--color-navy); }
+  .gr-src { display: inline-flex; align-items: center; gap: .4rem; font-size: .8125rem; font-weight: 600; color: var(--color-body); }
+  .gr-controls { display: flex; gap: .6rem; }
+  .gr-btn {
+    display: inline-flex; align-items: center; justify-content: center; width: 3rem; height: 3rem; border-radius: 9999px;
+    border: 1.5px solid rgb(255 255 255 / .55); color: #fff; background: transparent; cursor: pointer; transition: background .2s, color .2s, opacity .2s;
+  }
+  .gr-btn:hover:not(:disabled) { background: #fff; color: var(--color-navy); }
+  .gr-btn:disabled { opacity: .35; cursor: default; }
+  .gr-btn[hidden], .gr-dots[hidden] { display: none; }
+  .gr-footer { display: flex; flex-wrap: wrap; align-items: center; gap: 1rem 1.5rem; margin-top: .5rem; }
+  .gr-dots { display: flex; gap: .15rem; margin-right: auto; }
+  .gr-dots :global(.gr-dot) { width: 2.75rem; height: 2.75rem; display: inline-flex; align-items: center; justify-content: center; background: none; border: 0; cursor: pointer; padding: 0; }
+  .gr-dots :global(.gr-dot)::before { content: ''; width: .65rem; height: .65rem; border-radius: 9999px; background: rgb(255 255 255 / .45); transition: width .25s, background .25s; }
+  .gr-dots :global(.gr-dot[aria-current="true"])::before { width: 1.75rem; background: var(--color-coral); }
+  .gr-pause { background: none; border: 0; color: #fff; font-weight: 600; font-size: .875rem; text-decoration: underline; text-underline-offset: 3px; cursor: pointer; min-height: 2.75rem; padding: 0 .5rem; }
+  @media (max-width: 639px) { .gr-dots { margin-right: 0; width: 100%; justify-content: center; } .gr-cta { width: 100%; justify-content: center; } }
+  @media (prefers-reduced-motion: reduce) { .gr-track { scroll-behavior: auto; } .gr-dots :global(.gr-dot)::before { transition: none; } }
+</style>
+
+<script>
+  const root = document.querySelector<HTMLElement>('[data-gr]');
+  if (root) {
+    const section = root.closest('section') as HTMLElement;
+    const track = root.querySelector<HTMLElement>('[data-gr-track]')!;
+    const slides = Array.from(track.children) as HTMLElement[];
+    const prev = section.querySelector<HTMLButtonElement>('[data-gr-prev]')!;
+    const next = section.querySelector<HTMLButtonElement>('[data-gr-next]')!;
+    const dotsWrap = section.querySelector<HTMLElement>('[data-gr-dots]')!;
+    const toggle = section.querySelector<HTMLButtonElement>('[data-gr-toggle]')!;
+    const toggleLabel = toggle.querySelector('[data-gr-toggle-label]')!;
+    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)');
+    let positions = 1, current = 0, timer: number | undefined, userPaused = reduce.matches;
+
+    const step = () => (slides.length > 1 ? slides[1].offsetLeft - slides[0].offsetLeft : track.clientWidth) || 1;
+    const perView = () => Math.max(1, Math.round((track.clientWidth + 1) / step()));
+    const maxScroll = () => track.scrollWidth - track.clientWidth;
+
+    function buildDots() {
+      positions = Math.max(1, slides.length - perView() + 1);
+      dotsWrap.innerHTML = '';
+      dotsWrap.hidden = positions <= 1;
+      prev.hidden = next.hidden = positions <= 1;
+      for (let i = 0; i < positions; i++) {
+        const b = document.createElement('button');
+        b.type = 'button'; b.className = 'gr-dot';
+        b.setAttribute('aria-label', `Show reviews, position ${i + 1} of ${positions}`);
+        b.addEventListener('click', () => { stop(); goTo(i); });
+        dotsWrap.appendChild(b);
+      }
+      update();
+    }
+    function update() {
+      const idx = Math.min(positions - 1, Math.max(0, Math.round(track.scrollLeft / step())));
+      current = positions > 1 && track.scrollLeft >= maxScroll() - 2 ? positions - 1 : idx;
+      dotsWrap.querySelectorAll('.gr-dot').forEach((d, i) => d.setAttribute('aria-current', String(i === current)));
+      prev.disabled = current <= 0; next.disabled = current >= positions - 1;
+    }
+    function goTo(i: number) {
+      const clamped = Math.min(positions - 1, Math.max(0, i));
+      track.scrollTo({ left: Math.min(clamped * step(), maxScroll()), behavior: reduce.matches ? 'auto' : 'smooth' });
+    }
+    prev.addEventListener('click', () => { stop(); goTo(current - 1); });
+    next.addEventListener('click', () => { stop(); goTo(current + 1); });
+    track.addEventListener('scroll', () => requestAnimationFrame(update), { passive: true });
+    track.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowRight') { e.preventDefault(); stop(); goTo(current + 1); }
+      if (e.key === 'ArrowLeft') { e.preventDefault(); stop(); goTo(current - 1); }
+    });
+    window.addEventListener('resize', buildDots);
+
+    function stop() { if (timer) { clearInterval(timer); timer = undefined; } }
+    function start() {
+      stop();
+      if (userPaused || reduce.matches || positions <= 1) return;
+      timer = window.setInterval(() => goTo(current >= positions - 1 ? 0 : current + 1), 6000);
+    }
+    function syncToggle() {
+      toggle.setAttribute('aria-pressed', String(userPaused));
+      toggleLabel.textContent = userPaused ? 'Resume auto-scroll' : 'Pause auto-scroll';
+    }
+    toggle.addEventListener('click', () => { userPaused = !userPaused; syncToggle(); if (userPaused) stop(); else start(); });
+    // Auto-scroll pauses while hovering, touching or focused inside the section.
+    ['mouseenter', 'focusin', 'touchstart'].forEach((ev) => section.addEventListener(ev, stop, { passive: true }));
+    ['mouseleave', 'focusout'].forEach((ev) => section.addEventListener(ev, start));
+    reduce.addEventListener('change', () => { if (reduce.matches) { userPaused = true; syncToggle(); stop(); } });
+
+    buildDots(); syncToggle(); start();
+  }
+</script>

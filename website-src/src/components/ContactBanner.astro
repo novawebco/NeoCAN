@@ -1,0 +1,20 @@
+---
+import Button from './Button.astro';
+import { business } from '../data/business';
+interface Props { title?: string; text?: string }
+const { title = 'Discuss your requirements with Aman Maan', text = 'Tell NeoCAN which service or destination interests you. Aman Maan oversees client enquiries and consultation coordination.' } = Astro.props;
+---
+<section class="relative overflow-hidden hero-bg on-dark">
+  <div class="absolute inset-0 dots opacity-30" aria-hidden="true"></div>
+  <div class="absolute -left-24 -bottom-24 w-72 h-72 rounded-full bg-brand/30 blur-3xl" aria-hidden="true"></div>
+  <div class="container-x relative py-16 lg:py-20 grid lg:grid-cols-[1.4fr_1fr] gap-8 items-center">
+    <div>
+      <h2 class="t-section !text-white">{title}</h2>
+      <p class="mt-4 t-lead text-slate-300 max-w-2xl">{text}</p>
+    </div>
+    <div class="flex flex-col sm:flex-row lg:flex-col gap-3 lg:items-stretch">
+      <Button href={`tel:${business.phone}`} variant="primary" icon="phone">Call {business.phoneDisplay}</Button>
+      <Button href="/contact/" variant="white" arrow>Contact us</Button>
+    </div>
+  </div>
+</section>

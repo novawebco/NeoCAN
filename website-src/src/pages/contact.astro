@@ -1,0 +1,35 @@
+---
+import PageLayout from '../layouts/PageLayout.astro';
+import SectionHeading from '../components/SectionHeading.astro';
+import ConsultationForm from '../components/ConsultationForm.astro';
+import FAQAccordion from '../components/FAQAccordion.astro';
+import Icon from '../components/Icon.astro';
+import SchemaLocalBusiness from '../components/SchemaLocalBusiness.astro';
+import OfficeLocation from '../components/OfficeLocation.astro';
+import { business } from '../data/business';
+import { faqGroups } from '../data/faqs';
+const rows = [
+  { icon: 'phone', label: 'Phone', value: `${business.phoneDisplay} (in India: ${business.phoneLocal})`, href: `tel:${business.phone}` },
+  { icon: 'whatsapp', label: 'WhatsApp', value: 'Chat on WhatsApp', href: business.whatsapp + '?text=' + encodeURIComponent('Hello NeoCAN, I would like to speak to Aman Maan. City: ... Help I need (student visa / visitor visa / IELTS / PR): ... Destination (if known): ... Timing: ...'), ext: true },
+  { icon: 'mail', label: 'Email', value: business.email, href: `mailto:${business.email}` },
+];
+---
+<PageLayout title="Contact Aman Maan at NeoCAN | Sri Ganganagar" description="Call or message Aman Maan at NeoCAN about student visa, visitor visa, IELTS or PR. Office: 69, H Block, Sri Ganganagar, Rajasthan 335001, India." h1="Contact NeoCAN" eyebrow="Contact" lead="Speak with Aman Maan about student visa, visitor visa, IELTS or PR. Tell him your city, the help you need, your destination if you know it and your timing." crumbs={[{ label: 'Contact', href: '/contact/' }]} icon="message" chips={['Phone', 'WhatsApp', 'Email', 'Visit']} cta={{ label: 'Call now', href: `tel:${business.phone}` }}>
+  <SchemaLocalBusiness />
+  <section class="section">
+    <div class="container-x grid lg:grid-cols-[1fr_1.3fr] gap-12">
+      <div class="space-y-6">
+        <SectionHeading eyebrow="Primary contact" title="Get in touch" lead="Aman Maan is your primary contact at NeoCAN. In your first message, share your city, the help you need, your destination if you know it and your timing. Please do not send passport scans, passwords or one-time codes." />
+        <ul class="space-y-3">
+          {rows.map((r) => (
+            <li><a href={r.href} {...(r.ext ? { target: '_blank', rel: 'noopener noreferrer' } : {})} class="card hover flex items-center gap-4 p-4"><span class="grid place-items-center w-12 h-12 rounded-xl bg-mist text-brand-strong flex-none"><Icon name={r.icon} size={24} /></span><span><span class="block text-xs font-bold uppercase tracking-wider text-body">{r.label}</span><span class="font-display font-bold text-ink break-all">{r.value}</span></span></a></li>
+          ))}
+        </ul>
+</div>
+      <ConsultationForm id="contact" />
+    </div>
+  </section>
+  <OfficeLocation />
+  <section class="section section-mist"><div class="container-x"><SectionHeading eyebrow="After you contact us" title="A clear next step for your enquiry" lead="Aman Maan listens to your requirements, coordinates the relevant service discussion and oversees follow-up. A conversation does not guarantee visa approval or replace advice from a regulated practitioner." /></div></section>
+  <section class="section section-soft"><div class="container-x max-w-4xl"><h2 class="t-card !text-2xl mb-5">Contact questions</h2><FAQAccordion items={faqGroups[3].items} /></div></section>
+</PageLayout>

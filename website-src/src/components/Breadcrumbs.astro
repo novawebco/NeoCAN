@@ -1,0 +1,28 @@
+---
+import Icon from './Icon.astro';
+interface Crumb { label: string; href: string }
+interface Props { crumbs: Crumb[]; light?: boolean }
+const { crumbs, light = false } = Astro.props;
+const schema = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://neocan.net/' },
+    ...crumbs.map((c, i) => ({ '@type': 'ListItem', position: i + 2, name: c.label, item: 'https://neocan.net' + c.href })),
+  ],
+};
+---
+<nav aria-label="Breadcrumb" class={`text-sm ${light ? 'text-slate-300' : 'text-body'}`}>
+  <ol class="flex flex-wrap items-center gap-x-2 gap-y-1">
+    <li><a href="/" class="hover:underline underline-offset-4">Home</a></li>
+    {crumbs.map((c, i) => (
+      <>
+        <li aria-hidden="true" class="opacity-60"><Icon name="arrow" size={12} /></li>
+        {i < crumbs.length - 1
+          ? <li><a href={c.href} class="hover:underline underline-offset-4">{c.label}</a></li>
+          : <li class={`font-semibold ${light ? 'text-white' : 'text-ink'}`} aria-current="page">{c.label}</li>}
+      </>
+    ))}
+  </ol>
+</nav>
+<script type="application/ld+json" set:html={JSON.stringify(schema)} />

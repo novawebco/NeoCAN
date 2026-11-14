@@ -1,0 +1,29 @@
+---
+import PageLayout from '../../layouts/PageLayout.astro';
+import ResourceCard from '../../components/ResourceCard.astro';
+import RegulatoryNotice from '../../components/RegulatoryNotice.astro';
+import { resources } from '../../data/resources';
+const cats = ['All', ...Array.from(new Set(resources.map((r) => r.category)))];
+---
+<PageLayout title="Student Visa and IELTS Resources | NeoCAN" description="General information on student visa documents and IELTS preparation from NeoCAN Sri Ganganagar. Check current official requirements." h1="Student Visa and IELTS resources" eyebrow="Resources" lead="General starting points; check official requirements for your own route." crumbs={[{ label: 'Resources', href: '/resources/' }]} icon="book" chips={['Student Visa', 'IELTS']}>
+  <section class="section">
+    <div class="container-x">
+      <RegulatoryNotice title="Editorial drafts" text="Articles are drafts pending owner review and carry no publication dates. They are not statements of current immigration rules." />
+      <div class="mt-8 flex flex-wrap gap-2" role="group" aria-label="Filter by category">
+        {cats.map((c, i) => <button type="button" class={`rchip btn !min-h-[2.5rem] !py-1.5 !text-sm ${i === 0 ? 'btn-secondary' : 'btn-outline'}`} data-cat={c} aria-pressed={i === 0 ? 'true' : 'false'}>{c}</button>)}
+      </div>
+      <h2 class="sr-only">Student visa and IELTS guides</h2>
+      <div class="mt-10 grid sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8" id="r-grid">
+        {resources.map((r) => <div data-cat={r.category}><ResourceCard resource={r} /></div>)}
+      </div>
+    </div>
+  </section>
+  <script>
+    const chips = Array.from(document.querySelectorAll<HTMLButtonElement>('.rchip'));
+    const items = Array.from(document.querySelectorAll<HTMLElement>('#r-grid > div'));
+    chips.forEach((b) => b.addEventListener('click', () => {
+      chips.forEach((x) => { const on = x === b; x.setAttribute('aria-pressed', String(on)); x.classList.toggle('btn-secondary', on); x.classList.toggle('btn-outline', !on); });
+      items.forEach((i) => (i.hidden = b.dataset.cat !== 'All' && i.dataset.cat !== b.dataset.cat));
+    }));
+  </script>
+</PageLayout>

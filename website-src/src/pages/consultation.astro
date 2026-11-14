@@ -1,0 +1,48 @@
+---
+import PageLayout from '../layouts/PageLayout.astro';
+import SectionHeading from '../components/SectionHeading.astro';
+import ConsultationForm from '../components/ConsultationForm.astro';
+import ProcessTimeline from '../components/ProcessTimeline.astro';
+import FAQAccordion from '../components/FAQAccordion.astro';
+import FeatureCard from '../components/FeatureCard.astro';
+import RegulatoryNotice from '../components/RegulatoryNotice.astro';
+import RelatedLinks from '../components/RelatedLinks.astro';
+import { business } from '../data/business';
+import { faqGroups } from '../data/faqs';
+import { categories } from '../data/services';
+const steps = [
+  { title: 'Initial enquiry', text: 'Contact us by phone, WhatsApp, email or in person.' },
+  { title: 'Requirement discussion', text: 'We discuss your destination, purpose and background.' },
+  { title: 'Service & document guidance', text: 'We explain the relevant service and help you list documents.' },
+  { title: 'Application coordination', text: 'Where applicable, we support you as you prepare your application.' },
+  { title: 'Follow-up', text: 'We agree next steps and stay in touch.' },
+];
+---
+<PageLayout title="Consultation Process | Speak with NeoCAN" description="What to share when you contact Aman Maan at NeoCAN in Sri Ganganagar, how the first conversation works, and how to ask about cost and online options." h1="Arrange a consultation" eyebrow="Consultation" lead="Start with a conversation about your goals. Aman Maan coordinates the enquiry and helps identify the relevant NeoCAN service." crumbs={[{ label: 'Consultation', href: '/consultation/' }]} icon="calendar" chips={['Sri Ganganagar office', 'Phone enquiry']} cta={{ label: 'Call to arrange', href: `tel:${business.phone}` }}>
+  <section class="section">
+    <div class="container-x">
+      <SectionHeading eyebrow="What it covers" title="What an initial discussion covers" />
+      <div class="mt-10 grid md:grid-cols-3 gap-6">
+        <FeatureCard icon="users" title="Your goals" text="Where you want to go and whether you plan to study or make a short visit." />
+        <FeatureCard icon="file" title="Your background" text="Relevant education, travel plans and any IELTS result you hold." />
+        <FeatureCard icon="route" title="Next steps" text="Which NeoCAN services may be relevant, what documents to start gathering, what the help will cost and whether an online consultation is available for your case." />
+      </div>
+      <div class="mt-8"><RegulatoryNotice title="Not a legal assessment" text="A consultation is a general discussion. It is not a legal eligibility assessment or regulated immigration advice, and it does not guarantee any outcome." /></div>
+    </div>
+  </section>
+
+  <section class="section section-mist"><div class="container-x"><SectionHeading align="center" eyebrow="Steps" title="How enquiries work" lead="Aman Maan oversees the conversation and follow-up. Ask the team to confirm whether a phone or online consultation is available for your circumstances." /><div class="mt-14"><ProcessTimeline steps={steps} /></div></div></section>
+
+  <section class="section">
+    <div class="container-x grid lg:grid-cols-2 gap-12">
+      <div>
+        <SectionHeading eyebrow="Service selection" title="Choose the area you are interested in" />
+        <ul class="mt-6 space-y-3">{categories.map((c) => <li><a class="card hover block p-4" href={`/services/#${c.id}`}><span class="font-display font-bold text-ink">{c.label}</span><span class="block text-sm">{c.blurb}</span></a></li>)}</ul>
+        <div class="mt-8 card p-5 text-[.9375rem]"><p class="font-display font-bold text-ink">Contact options</p><p class="mt-2">Phone: <a class="text-brand-strong underline" href={`tel:${business.phone}`}>{business.phoneDisplay}</a><br />Email: <a class="text-brand-strong underline" href={`mailto:${business.email}`}>{business.email}</a><br />Office: {business.address.full}</p><p class="mt-2 text-xs">Consultation fees: please ask the team. Online booking is not yet available.</p></div>
+      </div>
+      <ConsultationForm id="consult" consultation />
+    </div>
+  </section>
+
+  <section class="section section-soft"><div class="container-x max-w-4xl"><h2 class="t-card !text-2xl mb-5">Consultation FAQ</h2><FAQAccordion items={faqGroups[3].items} /><div class="mt-8"><RelatedLinks title="Next" links={[{ label: 'Privacy Policy', href: '/privacy-policy/' }, { label: 'Disclaimer', href: '/disclaimer/' }, { label: 'All FAQs', href: '/faq/' }]} /></div></div></section>
+</PageLayout>

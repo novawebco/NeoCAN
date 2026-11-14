@@ -1,0 +1,156 @@
+---
+import BrandLogo from './BrandLogo.astro';
+import Icon from './Icon.astro';
+import { nav, serviceMenu, countryMenu } from '../data/navigation';
+const path = Astro.url.pathname;
+const active = (href: string) => (href === '/' ? path === '/' : path.startsWith(href));
+---
+<a href="#main" class="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-[100] focus:bg-white focus:text-navy focus:px-4 focus:py-2 focus:rounded-lg focus:shadow-lg">Skip to main content</a>
+
+<header id="site-header" class="sticky top-0 z-50 bg-white border-b border-line">
+  <div class="container-x flex items-center justify-between h-[4.5rem]">
+    <BrandLogo priority />
+
+    <nav aria-label="Main" class="hidden lg:block">
+      <ul class="flex items-center gap-1 whitespace-nowrap font-display font-semibold text-[.9375rem] text-navy">
+        {nav.main.map((item) => (
+          <li class="relative flex items-center" data-nav-item>
+            {item.mega ? (
+              <>
+                <a href={item.href} class={`inline-flex items-center gap-1 px-3.5 py-2.5 rounded-lg hover:bg-mist hover:text-brand-strong focus-visible:text-brand-strong ${active(item.href) ? 'text-brand-strong' : ''}`} aria-current={path === item.href ? 'page' : undefined} data-mega-link>{item.label}</a>
+                <button type="button" class="p-2 -ml-2 rounded-lg hover:bg-mist hover:text-brand-strong focus-visible:text-brand-strong" aria-expanded="false" aria-haspopup="true" aria-controls={`mega-${item.mega}`} data-mega-btn aria-label={`Open ${item.label} menu`}>
+                  <Icon name="chevron" size={16} class="transition-transform" />
+                </button>
+              </>
+            ) : (
+              <a href={item.href} class={`inline-flex px-3.5 py-2.5 rounded-lg hover:bg-mist hover:text-brand-strong focus-visible:text-brand-strong ${active(item.href) ? 'text-brand-strong' : ''}`} aria-current={path === item.href ? 'page' : undefined}>{item.label}</a>
+            )}
+          </li>
+        ))}
+      </ul>
+    </nav>
+
+    <button id="menu-open" type="button" class="lg:hidden grid place-items-center w-12 h-12 rounded-xl border border-line text-navy" aria-expanded="false" aria-controls="mobile-panel" aria-label="Open menu"><Icon name="menu" size={24} /></button>
+  </div>
+
+  <!-- Mega: services -->
+  <div id="mega-services" class="absolute inset-x-0 top-full bg-white border-b border-line shadow-lift" hidden data-mega>
+    <div class="container-x grid grid-cols-4 gap-5 py-8">
+      {serviceMenu.map((g) => (
+        <div>
+          <a href={g.href} class="font-display font-bold text-navy hover:text-brand-strong">{g.label}</a>
+          <ul class="mt-3 space-y-1.5 text-sm">
+            {g.items.map((i) => <li><a href={i.href} class="hover:text-brand-strong hover:underline underline-offset-4">{i.label}</a></li>)}
+          </ul>
+        </div>
+      ))}
+    </div>
+    <div class="bg-soft border-t border-line"><div class="container-x py-3 text-sm"><a href="/services/" class="link-arrow">View all services<Icon name="arrow" size={16} /></a></div></div>
+  </div>
+
+  <!-- Mega: countries -->
+  <div id="mega-countries" class="absolute inset-x-0 top-full bg-white border-b border-line shadow-lift" hidden data-mega>
+    <div class="container-x grid grid-cols-4 gap-8 py-8">
+      {countryMenu.map((g) => (
+        <div>
+          <p class="font-display font-bold text-navy">{g.label}</p>
+          <ul class="mt-3 grid grid-cols-1 gap-1.5 text-sm">
+            {g.items.map((i) => <li><a href={i.href} class="hover:text-brand-strong hover:underline underline-offset-4">{i.label}</a></li>)}
+          </ul>
+        </div>
+      ))}
+    </div>
+    <div class="bg-soft border-t border-line"><div class="container-x py-3 text-sm"><a href="/countries/" class="link-arrow">All destination countries<Icon name="arrow" size={16} /></a></div></div>
+  </div>
+</header>
+
+<!-- Mobile panel -->
+<div id="mobile-panel" class="fixed inset-0 z-[60] hidden" role="dialog" aria-modal="true" aria-label="Site menu">
+  <div class="absolute inset-0 bg-navy-deep/60" data-close></div>
+  <div class="absolute right-0 top-0 bottom-0 w-[min(24rem,100%)] bg-white overflow-y-auto flex flex-col">
+    <div class="flex items-center justify-between px-4 h-[4.5rem] border-b border-line">
+      <BrandLogo width={170} mobileWidth={150} />
+      <button id="menu-close" type="button" class="grid place-items-center w-12 h-12 rounded-xl border border-line text-navy" aria-label="Close menu"><Icon name="close" size={24} /></button>
+    </div>
+    <nav aria-label="Mobile" class="px-4 py-4 flex-1 font-display font-semibold text-navy">
+      <ul class="divide-y divide-line">
+        <li><a class={`flex items-center min-h-12 py-3 hover:text-brand-strong ${active('/') ? 'text-brand-strong' : ''}`} href="/" aria-current={path === '/' ? 'page' : undefined}>Home</a></li>
+        <li>
+          <details>
+            <summary class={`flex items-center justify-between min-h-12 py-3 cursor-pointer list-none hover:text-brand-strong ${active('/services/') ? 'text-brand-strong' : ''}`}>Services <Icon name="chevron" size={18} /></summary>
+            <div class="pb-3 pl-3 space-y-4">
+              {serviceMenu.map((g) => (
+                <div><a class="block font-bold text-brand-strong py-1" href={g.href}>{g.label}</a>
+                  <ul class="text-[.9375rem] font-medium">{g.items.map((i) => <li><a class="block py-2.5" href={i.href}>{i.label}</a></li>)}</ul></div>
+              ))}
+              <a class="link-arrow" href="/services/">All services<Icon name="arrow" size={16} /></a>
+            </div>
+          </details>
+        </li>
+        <li>
+          <details>
+            <summary class={`flex items-center justify-between min-h-12 py-3 cursor-pointer list-none hover:text-brand-strong ${active('/countries/') ? 'text-brand-strong' : ''}`}>Countries <Icon name="chevron" size={18} /></summary>
+            <div class="pb-3 pl-3 space-y-4">
+              {countryMenu.map((g) => (
+                <div><p class="font-bold text-brand-strong py-1">{g.label}</p>
+                  <ul class="text-[.9375rem] font-medium">{g.items.map((i) => <li><a class="block py-2.5" href={i.href}>{i.label}</a></li>)}</ul></div>
+              ))}
+              <a class="link-arrow" href="/countries/">All countries<Icon name="arrow" size={16} /></a>
+            </div>
+          </details>
+        </li>
+        <li><a class={`flex items-center min-h-12 py-3 hover:text-brand-strong ${active('/locations/') ? 'text-brand-strong' : ''}`} href="/locations/" aria-current={path === '/locations/' ? 'page' : undefined}>Locations</a></li>
+        <li><a class={`flex items-center min-h-12 py-3 hover:text-brand-strong ${active('/about/aman-maan/') ? 'text-brand-strong' : ''}`} href="/about/aman-maan/" aria-current={path === '/about/aman-maan/' ? 'page' : undefined}>Aman Maan</a></li>
+      </ul>
+    </nav>
+  </div>
+</div>
+
+<script>
+  // Desktop mega menus + mobile panel (focus-managed). No dependencies.
+  const header = document.getElementById('site-header')!;
+  const megas = Array.from(document.querySelectorAll<HTMLElement>('[data-mega]'));
+  const btns = Array.from(document.querySelectorAll<HTMLButtonElement>('[data-mega-btn]'));
+  const closeMegas = () => { megas.forEach((m) => (m.hidden = true)); btns.forEach((b) => { b.setAttribute('aria-expanded', 'false'); b.querySelector('svg')?.classList.remove('rotate-180'); }); };
+  const openMega = (b: HTMLButtonElement) => {
+    closeMegas();
+    const m = document.getElementById(b.getAttribute('aria-controls')!)!;
+    m.hidden = false; b.setAttribute('aria-expanded', 'true'); b.querySelector('svg')?.classList.add('rotate-180');
+  };
+  btns.forEach((b) => {
+    b.addEventListener('click', () => openMega(b));
+    b.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openMega(b); }
+    });
+    const li = b.closest('[data-nav-item]')!;
+    li.addEventListener('mouseenter', () => { if (matchMedia('(hover:hover)').matches) openMega(b); });
+  });
+  header.addEventListener('mouseleave', () => { if (matchMedia('(hover:hover)').matches) closeMegas(); });
+  header.addEventListener('focusout', (e) => { if (!header.contains(e.relatedTarget as Node)) closeMegas(); });
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape') { const open = btns.find((b) => b.getAttribute('aria-expanded') === 'true'); closeMegas(); open?.focus(); } });
+  document.addEventListener('click', (e) => { if (!header.contains(e.target as Node)) closeMegas(); });
+
+  const panel = document.getElementById('mobile-panel')!;
+  const openBtn = document.getElementById('menu-open')!;
+  const closeBtn = document.getElementById('menu-close')!;
+  const focusables = () => Array.from(panel.querySelectorAll<HTMLElement>('a[href],button,summary')).filter((el) => el.offsetParent !== null);
+  const setPanel = (open: boolean) => {
+    panel.classList.toggle('hidden', !open);
+    openBtn.setAttribute('aria-expanded', String(open));
+    document.body.style.overflow = open ? 'hidden' : '';
+    (open ? closeBtn : openBtn).focus();
+  };
+  openBtn.addEventListener('click', () => setPanel(true));
+  closeBtn.addEventListener('click', () => setPanel(false));
+  panel.querySelector('[data-close]')!.addEventListener('click', () => setPanel(false));
+  panel.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') setPanel(false);
+    if (e.key === 'Tab') {
+      const f = focusables(); if (!f.length) return;
+      const first = f[0], last = f[f.length - 1];
+      if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+      else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+    }
+  });
+  matchMedia('(min-width:1024px)').addEventListener('change', (m) => { if (m.matches) setPanel(false); });
+</script>

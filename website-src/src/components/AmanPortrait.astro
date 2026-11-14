@@ -1,0 +1,20 @@
+---
+import { Image } from 'astro:assets';
+import portrait from '../assets/aman-maan-professional.png';
+---
+<div class="relative mx-auto w-full max-w-[34rem] lg:max-w-none">
+  <div class="absolute -inset-3 rounded-[2rem] border border-brand-strong/20 bg-mist rotate-2" aria-hidden="true"></div>
+  <div class="relative overflow-hidden rounded-[1.5rem] border border-navy/10 bg-mist shadow-lift">
+    <Image
+      src={portrait}
+      alt="Aman Maan, primary client-facing representative of NeoCAN Global Migration Consulting"
+      widths={[320, 480, 640, 800]}
+      sizes="(min-width: 1024px) 450px, (min-width: 640px) 540px, calc(100vw - 32px)"
+      format="webp"
+      quality={82}
+      loading="lazy"
+      decoding="async"
+      class="block w-full h-auto"
+    />
+  </div>
+</div>

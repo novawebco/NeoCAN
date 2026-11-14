@@ -1,0 +1,22 @@
+---
+import Icon from './Icon.astro';
+interface Step { title: string; text: string; icon?: string }
+interface Props { steps: Step[]; dark?: boolean }
+const { steps, dark = false } = Astro.props;
+const icons = ['phone', 'message', 'file', 'route', 'check'];
+---
+<ol class={`relative grid gap-8 md:gap-6 ${steps.length >= 5 ? 'md:grid-cols-5' : steps.length === 4 ? 'md:grid-cols-4' : 'md:grid-cols-3'} ${dark ? 'on-dark' : ''}`}>
+  <div class={`hidden md:block absolute top-8 left-[8%] right-[8%] border-t-2 border-dashed ${dark ? 'border-white/30' : 'border-slate-300'}`} aria-hidden="true"></div>
+  {steps.map((s, i) => (
+    <li class="relative flex md:block gap-5 md:text-center">
+      <span class={`relative z-10 flex-none grid place-items-center w-16 h-16 rounded-full md:mx-auto ring-8 ${dark ? 'bg-brand-strong text-white ring-navy' : 'bg-navy text-white ring-white'}`}>
+        <Icon name={s.icon ?? icons[i % icons.length]} size={26} />
+      </span>
+      <div class="md:mt-5">
+        <p class={`font-display font-bold text-sm ${dark ? 'text-coral' : 'text-brand-strong'}`}>Step {i + 1}</p>
+        <h3 class={`t-card mt-1 ${dark ? '!text-white' : ''}`}>{s.title}</h3>
+        <p class={`mt-2 text-[.9375rem] ${dark ? 'text-slate-300' : ''}`}>{s.text}</p>
+      </div>
+    </li>
+  ))}
+</ol>

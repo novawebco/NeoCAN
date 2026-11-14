@@ -1,0 +1,12 @@
+<!doctype html><body style="margin:0;background:#888"><iframe id="f" style="border:0;background:#fff"></iframe><script>
+const p = new URLSearchParams(location.search);
+const f = document.getElementById('f');
+f.style.width = (p.get('w') || 390) + 'px';
+f.style.height = '900px';
+f.src = p.get('p') || '/';
+f.onload = () => {
+  const d = f.contentDocument;
+  d.querySelectorAll('.reveal').forEach((e) => e.classList.add('in'));
+  setTimeout(() => { const h = d.documentElement.scrollHeight; f.style.height = h + 'px'; document.title = d.documentElement.scrollWidth + 'x' + h; }, 300);
+};
+</script></body>

@@ -1,0 +1,13 @@
+---
+// Standard content page: dark inner hero + free-form body slot.
+import Base from './Base.astro';
+import InnerPageHero from '../components/InnerPageHero.astro';
+import ContactBanner from '../components/ContactBanner.astro';
+interface Props { title: string; description: string; h1?: string; lead?: string; eyebrow?: string; crumbs: { label: string; href: string }[]; icon?: string; tone?: 'navy' | 'red' | 'light'; chips?: string[]; cta?: { label: string; href: string }; cta2?: { label: string; href: string }; portraitUrl?: string; portraitAlt?: string; banner?: boolean; schema?: object | object[] }
+const { title, description, h1, lead, eyebrow, crumbs, icon, tone, chips, cta, cta2, portraitUrl, portraitAlt, banner = true, schema } = Astro.props;
+---
+<Base title={title} description={description} schema={schema}>
+  <InnerPageHero title={h1 ?? title} lead={lead} eyebrow={eyebrow} crumbs={crumbs} icon={icon} tone={tone} chips={chips} cta={cta} cta2={cta2} portraitUrl={portraitUrl} portraitAlt={portraitAlt} />
+  <slot />
+  {banner && <ContactBanner />}
+</Base>

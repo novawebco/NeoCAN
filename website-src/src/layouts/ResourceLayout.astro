@@ -1,0 +1,52 @@
+---
+import Base from './Base.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import Illustration from '../components/Illustration.astro';
+import { Image } from 'astro:assets';
+import ieltsGuide from '../assets/editorial/ielts-preparation-four-skills-guide.webp';
+import checklistGuide from '../assets/editorial/study-visa-document-checklist-guide.webp';
+import RelatedLinks from '../components/RelatedLinks.astro';
+import RegulatoryNotice from '../components/RegulatoryNotice.astro';
+import ContactBanner from '../components/ContactBanner.astro';
+import Icon from '../components/Icon.astro';
+import { getService } from '../data/services';
+import { resources, type Resource } from '../data/resources';
+interface Props { r: Resource }
+const { r } = Astro.props;
+const rel = r.related.map(getService).filter(Boolean);
+const more = resources.filter((o) => o.slug !== r.slug).slice(0, 3);
+const path = `/resources/${r.slug}/`;
+const guideImages = {
+  'ielts-preparation': { image: ieltsGuide, alt: 'Illustrative notebook arranged for four English test skills', social: '/social/ielts-preparation-four-skills-guide.webp' },
+  'study-visa-checklist': { image: checklistGuide, alt: 'Illustrative blank checklist and document folders for study visa preparation', social: '/social/study-visa-document-checklist-guide.webp' },
+};
+const guide = guideImages[r.slug as keyof typeof guideImages];
+---
+<Base title={`${r.title} | NeoCAN`} description={r.excerpt} ogImage={guide?.social} schema={{ '@context': 'https://schema.org', '@type': 'Article', headline: r.title, description: r.excerpt, publisher: { '@type': 'Organization', name: 'NeoCAN Global Migration Consulting' } }}>
+  <section class="bg-soft border-b border-line"><div class="container-x py-10"><Breadcrumbs crumbs={[{ label: 'Resources', href: '/resources/' }, { label: r.title, href: path }]} /></div></section>
+  <article class="section">
+    <div class="container-x grid lg:grid-cols-[1fr_20rem] gap-12">
+      <div class="min-w-0">
+        <p class="eyebrow">{r.category}</p>
+        <h1 class="t-page mt-3 max-w-3xl">{r.title}</h1>
+        <p class="t-lead mt-4 max-w-3xl">{r.excerpt}</p>
+        {guide ? <Image src={guide.image} alt={guide.alt} widths={[640,960,1280,1600]} sizes="(min-width: 1024px) 740px, calc(100vw - 32px)" format="webp" quality={80} loading="lazy" decoding="async" class="block w-full h-auto aspect-[21/9] object-cover rounded-2xl mt-8" /> : <Illustration icon={r.icon} tone={r.tone} ratio="aspect-[21/9]" class="mt-8" />}
+        <div class="mt-8"><RegulatoryNotice title="Editorial draft" text="This is a general informational draft pending owner review. It is not legal advice and is not a statement of current immigration rules. Always confirm details with the official source." /></div>
+        <div class="prose-neo mt-8">
+          {r.sections.map((s) => (<><h2>{s.h}</h2>{s.p.map((p) => <p>{p}</p>)}</>))}
+        </div>
+        <div class="mt-10 rounded-2xl bg-soft border border-line p-5 text-sm space-y-1">
+          <p class="font-display font-bold text-ink">Sources and updates</p>
+          {r.source ? <p>Official source: <a class="text-brand-strong underline" href={r.source.url} target="_blank" rel="noopener noreferrer">{r.source.label}</a></p> : <p>Refer to official government websites for current rules.</p>}
+          <p>Last reviewed: pending editorial review.</p>
+        </div>
+      </div>
+      <aside class="lg:sticky lg:top-28 self-start space-y-5">
+        <div class="card p-5"><p class="font-display font-bold text-ink">Related services</p><ul class="mt-3 space-y-2">{rel.map((s) => <li><a class="link-arrow" href={`/services/${s!.slug}/`}>{s!.shortTitle}<Icon name="arrow" size={16} /></a></li>)}</ul></div>
+        <a href="/consultation/" class="btn btn-primary w-full">Talk to NeoCAN</a>
+      </aside>
+    </div>
+  </article>
+  <section class="section section-soft"><div class="container-x"><RelatedLinks title="More resources" links={more.map((m) => ({ label: m.title, href: `/resources/${m.slug}/`, note: m.category }))} /></div></section>
+  <ContactBanner />
+</Base>

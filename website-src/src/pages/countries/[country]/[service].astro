@@ -1,0 +1,8 @@
+---
+import CrossoverLayout from '../../../layouts/CrossoverLayout.astro';
+import { crossovers } from '../../../data/crossovers';
+// Country-service claims require individual availability and regulatory verification.
+export function getStaticPaths() { return []; }
+const { x } = Astro.props;
+---
+<CrossoverLayout x={x} />

@@ -1,0 +1,18 @@
+---
+import Icon from './Icon.astro';
+interface Props { title: string; links: { label: string; href: string; note?: string }[] }
+const { title, links } = Astro.props;
+---
+{links.length > 0 && (
+  <aside aria-label={title}>
+    <h2 class="t-card !text-[1.375rem]">{title}</h2>
+    <ul class="mt-4 grid sm:grid-cols-2 lg:grid-cols-3 gap-3">
+      {links.map((l) => (
+        <li><a href={l.href} class="card hover flex items-center justify-between gap-3 px-5 py-4 font-display font-semibold text-navy">
+          <span>{l.label}{l.note && <span class="block text-xs font-normal text-body">{l.note}</span>}</span>
+          <Icon name="arrow" size={18} class="text-brand-strong flex-none" />
+        </a></li>
+      ))}
+    </ul>
+  </aside>
+)}

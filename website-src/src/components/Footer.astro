@@ -1,0 +1,56 @@
+---
+import BrandLogo from './BrandLogo.astro';
+import Icon from './Icon.astro';
+import { business } from '../data/business';
+import { nav, serviceMenu } from '../data/navigation';
+import { countries } from '../data/countries';
+const year = new Date().getFullYear();
+---
+<footer class="bg-navy-deep text-slate-300 on-dark">
+  <div class="container-x py-14 lg:py-20 grid gap-12 lg:grid-cols-12">
+    <div class="lg:col-span-4">
+      <BrandLogo placement="footer" width={240} mobileWidth={200} />
+      <p class="mt-5 text-[.9375rem] leading-relaxed max-w-sm">{business.description}</p>
+      <address class="not-italic mt-6 space-y-3 text-[.9375rem]">
+        <p class="flex gap-3"><Icon name="pin" size={20} class="flex-none mt-0.5 text-coral" /><span>{business.address.full}</span></p>
+        <p class="flex gap-3"><Icon name="phone" size={20} class="flex-none mt-0.5 text-coral" /><a class="hover:text-white" href={`tel:${business.phone}`}>{business.phoneDisplay}</a></p>
+        <p class="flex gap-3"><Icon name="mail" size={20} class="flex-none mt-0.5 text-coral" /><a class="hover:text-white" href={`mailto:${business.email}`}>{business.email}</a></p>
+        <p class="flex gap-3"><Icon name="clock" size={20} class="flex-none mt-0.5 text-coral" /><span>{business.hours}</span></p>
+        <p><a href={business.maps} target="_blank" rel="noopener noreferrer" class="hover:text-white underline">Google Maps directions</a></p>
+      </address>
+    </div>
+
+    <div class="lg:col-span-8 grid sm:grid-cols-2 lg:grid-cols-4 gap-10">
+      <div>
+        <h2 class="font-display text-white text-base font-bold mb-4">Quick links</h2>
+        <ul class="space-y-2.5 text-[.9375rem]">{nav.footer.quick.map((l) => <li><a class="hover:text-white hover:underline underline-offset-4" href={l.href}>{l.label}</a></li>)}</ul>
+      </div>
+      <div>
+        <h2 class="font-display text-white text-base font-bold mb-4">Service categories</h2>
+        <ul class="space-y-2.5 text-[.9375rem]">
+          {serviceMenu.map((g) => <li><a class="hover:text-white hover:underline underline-offset-4" href={g.href}>{g.label}</a></li>)}
+          <li><a class="hover:text-white hover:underline underline-offset-4" href="/services/">All services</a></li>
+        </ul>
+      </div>
+      <div>
+        <h2 class="font-display text-white text-base font-bold mb-4">Countries</h2>
+        <ul class="space-y-2.5 text-[.9375rem]">
+          {countries.map((c) => <li><a class="hover:text-white hover:underline underline-offset-4" href={`/countries/${c.slug}/`}>{c.name}</a></li>)}
+          <li><a class="hover:text-white hover:underline underline-offset-4" href="/countries/">All countries</a></li>
+        </ul>
+      </div>
+      <div>
+        <h2 class="font-display text-white text-base font-bold mb-4">Primary contact</h2>
+        <p class="text-[.9375rem]"><a class="text-white font-semibold hover:underline" href="/about/aman-maan/">Aman Maan</a><br />Handles enquiries and consultation coordination.</p>
+        <a href={business.whatsapp} target="_blank" rel="noopener noreferrer" class="btn btn-outline-light mt-4 !min-h-[2.75rem] !py-2 !text-sm"><Icon name="whatsapp" size={18} />WhatsApp</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="border-t border-white/10">
+    <div class="container-x py-5 text-[.8125rem] flex flex-col xl:flex-row gap-3 xl:items-center xl:justify-between">
+      <p>© {year} {business.legalName}. CIN {business.cin}. All rights reserved.</p>
+      <ul class="flex flex-wrap gap-x-5 gap-y-1">{nav.footer.legal.map((l) => <li><a class="hover:text-white hover:underline" href={l.href}>{l.label}</a></li>)}</ul>
+    </div>
+  </div>
+</footer>

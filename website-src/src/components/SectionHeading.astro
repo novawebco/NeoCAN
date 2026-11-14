@@ -1,0 +1,9 @@
+---
+interface Props { eyebrow?: string; title: string; lead?: string; align?: 'left' | 'center'; light?: boolean; as?: 'h1' | 'h2' | 'h3' }
+const { eyebrow, title, lead, align = 'left', light = false, as: Tag = 'h2' } = Astro.props;
+---
+<div class={`${align === 'center' ? 'text-center mx-auto' : ''} max-w-3xl ${light ? 'on-dark' : ''}`}>
+  {eyebrow && <p class="eyebrow mb-3">{eyebrow}</p>}
+  <Tag class={`t-section ${light ? '!text-white' : ''}`}>{title}</Tag>
+  {lead && <p class={`t-lead mt-4 ${light ? 'text-slate-300' : ''}`}>{lead}</p>}
+</div>

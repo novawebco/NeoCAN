@@ -1,0 +1,7 @@
+---
+import CountryLayout from '../../../layouts/CountryLayout.astro';
+import { countries } from '../../../data/countries';
+export function getStaticPaths() { return countries.map((c) => ({ params: { country: c.slug }, props: { country: c } })); }
+const { country } = Astro.props;
+---
+<CountryLayout country={country} />

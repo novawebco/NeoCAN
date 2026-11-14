@@ -1,0 +1,23 @@
+---
+import Illustration from './Illustration.astro';
+import { Image } from 'astro:assets';
+import studyVisaHero from '../assets/editorial/student-visa-assistance-india.webp';
+import ieltsHero from '../assets/editorial/ielts-preparation-student.webp';
+import visitorHero from '../assets/editorial/visitor-tourist-visa-planning.webp';
+import eligibilityHero from '../assets/editorial/immigration-eligibility-enquiry.webp';
+import Icon from './Icon.astro';
+import { categories, type Service } from '../data/services';
+interface Props { service: Service; compact?: boolean }
+const { service: s, compact = false } = Astro.props;
+const cat = categories.find((c) => c.id === s.category)?.label;
+const image = ({ 'study-visa': studyVisaHero, 'ielts-coaching': ieltsHero, 'visitor-visa': visitorHero, 'eligibility-consultation': eligibilityHero } as Record<string, typeof studyVisaHero>)[s.slug];
+---
+<a href={`/services/${s.slug}/`} class="card group flex flex-col overflow-hidden h-full">
+  {!compact && (image ? <Image src={image} alt={`Illustrative ${s.shortTitle.toLowerCase()} planning scene`} widths={[360, 540, 720]} sizes="(min-width: 1024px) 380px, (min-width: 640px) 50vw, 100vw" format="webp" quality={78} loading="lazy" decoding="async" class="block w-full aspect-[16/10] object-cover" /> : <Illustration icon={s.icon} tone={s.tone} ratio="aspect-[16/10]" class="!rounded-none" />)}
+  <div class="p-6 flex flex-col flex-1">
+    <p class="text-xs font-bold uppercase tracking-wider text-brand-strong">{cat}</p>
+    <h3 class="t-card mt-2">{s.title}</h3>
+    <p class="mt-3 text-[.9375rem] flex-1">{s.tagline}</p>
+    <span class="link-arrow mt-5">Learn more<Icon name="arrow" size={18} /></span>
+  </div>
+</a>

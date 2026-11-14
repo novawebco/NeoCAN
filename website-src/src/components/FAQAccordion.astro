@@ -1,0 +1,17 @@
+---
+import Icon from './Icon.astro';
+import type { Faq } from '../data/services';
+interface Props { items: Faq[]; schema?: boolean }
+const { items, schema = false } = Astro.props;
+// FAQ structured data is optional; rich-result display is not assumed.
+const ld = { '@context': 'https://schema.org', '@type': 'FAQPage', mainEntity: items.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })) };
+---
+<div class="faq space-y-3">
+  {items.map((f, i) => (
+    <details open={i === 0 && undefined}>
+      <summary><span>{f.q}</span><Icon name="chevron" size={22} class="chev" /></summary>
+      <div class="px-5 pb-5 -mt-1 text-[.9375rem]">{f.a}</div>
+    </details>
+  ))}
+</div>
+{schema && <script type="application/ld+json" set:html={JSON.stringify(ld)} />}

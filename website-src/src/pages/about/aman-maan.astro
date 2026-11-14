@@ -1,0 +1,63 @@
+---
+// Aman Maan page. Legal title, qualifications and licences are NOT confirmed — none may be stated.
+import PageLayout from '../../layouts/PageLayout.astro';
+import SectionHeading from '../../components/SectionHeading.astro';
+import FeatureCard from '../../components/FeatureCard.astro';
+import RelatedLinks from '../../components/RelatedLinks.astro';
+import Button from '../../components/Button.astro';
+import Icon from '../../components/Icon.astro';
+import AmanPortrait from '../../components/AmanPortrait.astro';
+import { business } from '../../data/business';
+---
+<PageLayout title="About Aman Maan | NeoCAN Client Contact" description="Meet Aman Maan, NeoCAN's primary client contact in Sri Ganganagar. Learn how he handles enquiries, coordinates consultations and supervises daily operations." h1="About Aman Maan" eyebrow="Primary client contact" lead="Direct conversations, attentive enquiry coordination and day-to-day operational oversight at NeoCAN." crumbs={[{ label: 'About Us', href: '/about/' }, { label: 'Aman Maan', href: '/about/aman-maan/' }]} portraitUrl="/hero/aman-maan-travel.webp" portraitAlt="AI-assisted image based on Aman Maan's photograph; he holds a model airplane and generic travel booklet" cta={{ label: 'Send an enquiry', href: '/contact/' }} cta2={{ label: 'Call now', href: `tel:${business.phone}` }}>
+  <section class="section">
+    <div class="container-x grid lg:grid-cols-[minmax(0,2fr)_minmax(0,3fr)] gap-12 lg:gap-16 items-center">
+      <AmanPortrait />
+      <div>
+        <SectionHeading eyebrow="Professional introduction" title="Who you will speak with" />
+        <p class="mt-5">Aman Maan oversees the day-to-day operations of NeoCAN Global Migration Consulting and serves as the primary point of contact for client enquiries.</p>
+        <p class="mt-4">He communicates directly with clients, listens to their requirements, coordinates consultations and supervises service-related communication.</p>
+        <div class="mt-10 grid sm:grid-cols-2 gap-5">
+          <FeatureCard icon="phone" title="Client communication" text="Direct conversations with clients about their needs and questions." />
+          <FeatureCard icon="building" title="Daily operational oversight" text="Supervises day-to-day activities at the NeoCAN office." />
+          <FeatureCard icon="calendar" title="Consultation coordination" text="Coordinates consultations and services, and follows up on enquiries." />
+          <FeatureCard icon="message" title="Understanding your needs" text="Starts every conversation by listening to your goals and circumstances." />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-soft">
+    <div class="container-x">
+      <SectionHeading eyebrow="How he works" title="How Aman Maan Handles Your Enquiry" lead="Aman Maan receives and coordinates client enquiries, from the first discussion through consultation follow-up. He personally handles PR enquiries." />
+      <div class="mt-10 grid md:grid-cols-2 lg:grid-cols-4 gap-5">
+        <FeatureCard icon="phone" title="Direct Client Communication" text="He discusses enquiries with clients through the available contact channels and helps clarify the next question to address." />
+        <FeatureCard icon="message" title="Understanding Individual Requirements" text="He asks what you want to do abroad, which destination you are considering and what support you need." />
+        <FeatureCard icon="calendar" title="Consultation Coordination" text="He organises the initial service discussion and keeps the enquiry connected to the relevant NeoCAN work." />
+        <FeatureCard icon="building" title="Daily Operational Oversight" text="He supervises day-to-day operations and the follow-up of client enquiries." />
+      </div>
+      <div class="mt-10 grid lg:grid-cols-2 gap-8">
+        <div class="card p-6"><h3 class="t-card">What to tell Aman Maan</h3><p class="mt-3">Share your purpose, destination, relevant dates and any existing application or decision letter. This helps him understand your starting point. Avoid sharing passwords or one-time codes.</p></div>
+        <div class="card p-6"><h3 class="t-card">What happens next</h3><p class="mt-3">Aman Maan coordinates the appropriate NeoCAN service discussion and explains how to continue the enquiry. For regulated immigration advice, speak with an authorised professional in the relevant country.</p></div>
+      </div>
+      <div class="mt-8"><RelatedLinks title="Explore relevant services" links={[{ label: 'Student Visa', href: '/services/study-visa/' }, { label: 'Visitor Visa and Tourist Visa', href: '/services/visitor-visa/' }, { label: 'IELTS', href: '/services/ielts-coaching/' }, { label: 'PR (Permanent Residency)', href: '/services/pr/' }, { label: 'All services', href: '/services/' }]} /></div>
+    </div>
+  </section>
+
+  <section class="section section-soft">
+    <div class="container-x grid lg:grid-cols-2 gap-12">
+      <div>
+        <SectionHeading eyebrow="Contact" title="Contact Aman Maan" />
+        <ul class="mt-6 space-y-4">
+          <li class="flex gap-3"><Icon name="phone" size={22} class="text-brand-strong flex-none" /><a class="hover:underline" href={`tel:${business.phone}`}>{business.phoneDisplay}</a></li>
+          <li class="flex gap-3"><Icon name="whatsapp" size={22} class="text-brand-strong flex-none" /><a class="hover:underline" href={business.whatsapp} target="_blank" rel="noopener noreferrer">WhatsApp</a></li>
+          <li class="flex gap-3"><Icon name="mail" size={22} class="text-brand-strong flex-none" /><a class="hover:underline" href={`mailto:${business.email}`}>{business.email}</a></li>
+          <li class="flex gap-3"><Icon name="pin" size={22} class="text-brand-strong flex-none" /><span>{business.address.full}</span></li>
+          <li class="flex gap-3"><Icon name="clock" size={22} class="text-brand-strong flex-none" /><span>{business.hours}</span></li>
+          <li><a href={business.maps} target="_blank" rel="noopener noreferrer" class="link-arrow">Google Maps directions →</a></li>
+        </ul>
+      </div>
+      <div class="card p-6 sm:p-8"><h2 class="t-card">What to expect</h2><p class="mt-3 text-[.9375rem]">Share your destination, purpose and timeline. Aman Maan or the team will respond with suggested next steps and the relevant NeoCAN service. NeoCAN provides general guidance and does not offer regulated legal advice.</p><p class="mt-4 text-sm">Customers have shared feedback about Aman and the team on <a href={business.maps} target="_blank" rel="noopener noreferrer" class="text-brand-strong underline">Google</a>.</p><div class="mt-5"><Button href="/consultation/" variant="primary" arrow>Consultation details</Button></div></div>
+    </div>
+  </section>
+</PageLayout>

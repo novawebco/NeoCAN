@@ -1,0 +1,27 @@
+---
+// Owner-supplied business hours; confirm they match the published listing before deployment.
+import { business } from '../data/business';
+import officialLogo from '../assets/branding/neocan-logo-header.webp';
+const schema = {
+  '@context': 'https://schema.org',
+  '@type': 'ProfessionalService',
+  name: business.name,
+  legalName: business.legalName,
+  description: 'NeoCAN is a migration consulting office in Sri Ganganagar. Aman Maan coordinates enquiries about student visas, visitor and tourist visas, IELTS preparation and PR. For Canadian immigration matters NeoCAN works with an RCIC partner. Scope and destination availability are confirmed individually.',
+  url: business.website,
+  logo: new URL(officialLogo.src, business.website).href,
+  telephone: business.phone,
+  email: business.email,
+  address: {
+    '@type': 'PostalAddress',
+    streetAddress: business.address.street,
+    addressLocality: business.address.city,
+    addressRegion: business.address.state,
+    postalCode: business.address.pin,
+    addressCountry: 'IN',
+  },
+  hasMap: business.maps,
+  openingHoursSpecification: [{ '@type': 'OpeningHoursSpecification', dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'], opens: '09:00', closes: '18:00' }],
+};
+---
+<script type="application/ld+json" set:html={JSON.stringify(schema)} />

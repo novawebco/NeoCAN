@@ -1,0 +1,19 @@
+---
+import Base from '../layouts/Base.astro';
+import Illustration from '../components/Illustration.astro';
+import Button from '../components/Button.astro';
+---
+<Base title="Page not found | NeoCAN" description="The page you were looking for could not be found.">
+  <section class="section">
+    <div class="container-x grid lg:grid-cols-2 gap-12 items-center">
+      <div>
+        <p class="eyebrow">Error 404</p>
+        <h1 class="t-page mt-3">This route doesn't lead anywhere</h1>
+        <p class="t-lead mt-4">The page may have moved or never existed. Try one of these instead.</p>
+        <div class="mt-8 flex flex-col sm:flex-row gap-3"><Button href="/" variant="primary" arrow>Back to homepage</Button><Button href="/contact/" variant="outline">Contact us</Button></div>
+        <ul class="mt-8 flex flex-wrap gap-x-6 gap-y-2 font-display font-semibold text-navy"><li><a class="underline underline-offset-4" href="/services/">Services</a></li><li><a class="underline underline-offset-4" href="/countries/">Countries</a></li><li><a class="underline underline-offset-4" href="/locations/">Locations</a></li><li><a class="underline underline-offset-4" href="/faq/">FAQ</a></li></ul>
+      </div>
+      <Illustration icon="route" tone="navy" label="Illustration of a travel route" chips={['404']} />
+    </div>
+  </section>
+</Base>

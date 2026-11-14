@@ -1,0 +1,32 @@
+---
+// STAGED FORM: submission is deliberately NOT active. Activate only after data handling, privacy notice and receiving system are approved.
+import Icon from './Icon.astro';
+import { services } from '../data/services';
+import { business } from '../data/business';
+interface Props { id?: string; consultation?: boolean }
+const { id = 'enquiry', consultation = false } = Astro.props;
+---
+<form id={`form-${id}`} class="card p-6 sm:p-8 space-y-5" novalidate data-staged-form>
+  <div class="rounded-xl bg-mist text-navy p-4 text-sm flex gap-3" role="status">
+    <Icon name="lock" size={20} class="flex-none mt-0.5" />
+    <p><strong>Online form not yet active.</strong> It is shown so you can see how enquiries will work. Please contact us directly by phone, WhatsApp or email below.</p>
+  </div>
+  <div class="grid sm:grid-cols-2 gap-5">
+    <div class="field"><label for={`${id}-name`}>Full name <span aria-hidden="true">*</span></label><input id={`${id}-name`} name="name" type="text" autocomplete="name" required aria-required="true" /></div>
+    <div class="field"><label for={`${id}-phone`}>Phone / WhatsApp <span aria-hidden="true">*</span></label><input id={`${id}-phone`} name="phone" type="tel" autocomplete="tel" required aria-required="true" /></div>
+  </div>
+  <div class="field"><label for={`${id}-email`}>Email</label><input id={`${id}-email`} name="email" type="email" autocomplete="email" /></div>
+  <div class="grid sm:grid-cols-2 gap-5">
+    <div class="field"><label for={`${id}-service`}>Service of interest</label>
+      <select id={`${id}-service`} name="service"><option value="">Select a service</option>{services.map((s) => <option value={s.slug}>{s.shortTitle}</option>)}</select></div>
+    <div class="field"><label for={`${id}-mode`}>{consultation ? 'Preferred consultation mode' : 'Preferred contact method'}</label>
+      <select id={`${id}-mode`} name="mode"><option value="">Select</option><option>Phone call</option><option>WhatsApp</option><option>Online video</option><option>In person, Sri Ganganagar</option></select></div>
+  </div>
+  <div class="field"><label for={`${id}-msg`}>Your message</label><textarea id={`${id}-msg`} name="message" rows="4"></textarea></div>
+  <p class="text-sm">By contacting NeoCAN you agree that we may use your details to respond. See our <a class="underline text-brand-strong" href="/privacy-policy/">Privacy Policy</a>.</p>
+  <div class="flex flex-col sm:flex-row gap-3">
+    <button type="submit" class="btn btn-primary" disabled aria-disabled="true">Send enquiry (not yet available)</button>
+    <a class="btn btn-outline" href={business.whatsapp} target="_blank" rel="noopener noreferrer"><Icon name="whatsapp" size={18} />WhatsApp us</a>
+    <a class="btn btn-outline" href={`mailto:${business.email}`}><Icon name="mail" size={18} />Email us</a>
+  </div>
+</form>

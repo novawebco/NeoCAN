@@ -1,0 +1,16 @@
+---
+import LegalLayout from '../layouts/LegalLayout.astro';
+const toc = [{ id: 'use', label: 'Using this website' }, { id: 'services', label: 'Our services' }, { id: 'outcomes', label: 'No guarantees' }, { id: 'links', label: 'External links' }, { id: 'fees', label: 'Fees and refunds' }];
+---
+<LegalLayout title="Terms of Service" description="Terms for using the NeoCAN Global Migration Consulting website: information-only content, no guaranteed outcomes, and external links." toc={toc} path="/terms/">
+  <h2 id="use">Using this website</h2>
+  <p>This website provides general information about NeoCAN's services. By using it you agree to these terms.</p>
+  <h2 id="services">Our services</h2>
+  <p>NeoCAN coordinates enquiries and shares general information about student visa, visitor visa, IELTS and PR topics. The specific services, scope, destination availability and any fee for your case are confirmed individually before work begins. Information here is not legal advice. Regulated immigration advice or representation must come from a person authorised in the relevant country.</p>
+  <h2 id="outcomes">No guarantees</h2>
+  <p>Visa and admission decisions are made by authorities and institutions. NeoCAN cannot guarantee any outcome.</p>
+  <h2 id="links">External links</h2>
+  <p>Links to official or third-party websites are provided for convenience. NeoCAN is not responsible for their content.</p>
+  <h2 id="fees">Fees and refunds</h2>
+  <p>[Fee structure and refund or cancellation policy to be confirmed by the owner before publication.]</p>
+</LegalLayout>

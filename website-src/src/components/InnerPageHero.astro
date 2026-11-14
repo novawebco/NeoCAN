@@ -1,0 +1,37 @@
+---
+import Breadcrumbs from './Breadcrumbs.astro';
+import Illustration from './Illustration.astro';
+import Button from './Button.astro';
+import { Image, type ImageMetadata } from 'astro:assets';
+interface Props {
+  title: string; lead?: string; eyebrow?: string;
+  crumbs: { label: string; href: string }[];
+  icon?: string; tone?: 'navy' | 'red' | 'light'; chips?: string[];
+  cta?: { label: string; href: string }; cta2?: { label: string; href: string };
+  badge?: string; // e.g. country code monogram
+  image?: ImageMetadata; imageAlt?: string;
+  portraitUrl?: string; portraitAlt?: string;
+}
+const { title, lead, eyebrow, crumbs, icon = 'globe', tone = 'navy', chips = [], cta, cta2, badge, image, imageAlt = '', portraitUrl, portraitAlt = '' } = Astro.props;
+---
+<section class="relative overflow-hidden hero-bg on-dark">
+  <div class="absolute inset-0 dots opacity-25" aria-hidden="true"></div>
+  <div class="absolute -right-24 -top-24 w-96 h-96 rounded-full border border-white/10" aria-hidden="true"></div>
+  <div class="container-x relative py-12 lg:py-20 grid lg:grid-cols-[1.25fr_1fr] gap-10 items-center">
+    <div>
+      <Breadcrumbs crumbs={crumbs} light />
+      {eyebrow && <p class="eyebrow mt-8 mb-3">{eyebrow}</p>}
+      <h1 class={`t-page !text-white ${eyebrow ? '' : 'mt-8'}`}>{title}</h1>
+      {lead && <p class="t-lead mt-5 text-slate-300 max-w-2xl">{lead}</p>}
+      {(cta || cta2) && (
+        <div class="mt-8 flex flex-col sm:flex-row gap-3">
+          {cta && <Button href={cta.href} variant="primary" arrow>{cta.label}</Button>}
+          {cta2 && <Button href={cta2.href} variant="outline-light">{cta2.label}</Button>}
+        </div>
+      )}
+    </div>
+    <div class={image || portraitUrl ? 'block' : 'hidden lg:block'}>
+      {portraitUrl ? <div class="relative flex h-[310px] sm:h-[370px] lg:h-[390px] items-end justify-center overflow-hidden rounded-2xl bg-gradient-to-br from-[#253461] via-[#19264f] to-[#111a3f] ring-1 ring-white/15 shadow-lift"><img src={portraitUrl} alt={portraitAlt} width="1000" height="1500" loading="eager" fetchpriority="high" decoding="async" class="block h-full w-auto max-w-full object-contain object-bottom" /></div> : image ? <Image src={image} alt={imageAlt} widths={[480, 720, 960, 1200]} sizes="(min-width: 1024px) 500px, calc(100vw - 32px)" format="webp" quality={80} loading="eager" fetchpriority="high" decoding="async" class="block w-full h-auto aspect-[16/9] object-cover rounded-2xl ring-1 ring-white/15 shadow-lift" /> : <Illustration icon={icon} tone={tone === 'light' ? 'red' : tone} chips={chips} ratio="aspect-[5/4]" class="ring-1 ring-white/15" />}
+    </div>
+  </div>
+</section>
