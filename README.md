@@ -13,5 +13,5 @@ node scripts/seo-qa.mjs
 ```
 
 The site currently emits `noindex, nofollow` and is not ready for public
-indexing. The repository's `main` branch is the GitHub Pages source; this
-project source branch can be reviewed without publishing the site.
+indexing. Pushing `main` runs the GitHub Pages workflow, which builds the site
+and adapts internal links for `https://novawebco.github.io/NeoCAN/`.
