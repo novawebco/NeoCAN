@@ -1,6 +1,7 @@
 // Approved destination countries (owner-approved, documentary evidence pending). Detail pages follow the route index phases 1-2.
 import type { Faq } from './services';
 import { countryExtras } from './countryExtras';
+import { workflowFaqs } from './countryHelp';
 
 export type RegulatedKind = 'canada' | 'australia' | 'uk' | 'nz' | null;
 
@@ -259,7 +260,7 @@ const guideCopy: Record<string, Pick<Country, 'seoTitle' | 'seoDescription' | 'i
     seoDescription: 'Plain-language guide to Canada study permits and visitor visas for applicants in India, with IRCC links. Ask Aman Maan at NeoCAN, Sri Ganganagar.',
     intro: [
       'Canada’s study permits and visitor visas are decided by Immigration, Refugees and Citizenship Canada (IRCC). Applicants from India generally need a visa or permit before travel, and the rules for international students have changed several times in recent years.',
-      'Aman Maan listens to your plans and coordinates your enquiry at NeoCAN in Sri Ganganagar. Whether NeoCAN can assist with a particular Canada service is confirmed individually; this guide is general information, not a promise of eligibility or an outcome.',
+      'Aman Maan personally oversees your application at NeoCAN in Sri Ganganagar. NeoCAN helps with study permits, visitor visas, tourism visits, PR enquiries and IELTS preparation for Canada. This guide is general information, not a promise of eligibility or an outcome, because IRCC decides every application.',
     ],
     considerations: [
       { title: 'Study permits', text: 'A study permit application generally starts with an offer from a designated learning institution (DLI). IRCC also sets provincial or territorial attestation and financial-proof requirements that change, so read the current IRCC instructions for your programme level.' },
@@ -279,7 +280,7 @@ const guideCopy: Record<string, Pick<Country, 'seoTitle' | 'seoDescription' | 'i
     seoDescription: 'General guide to the UK Student visa and Standard Visitor visa for applicants in India, with GOV.UK links. Ask Aman Maan at NeoCAN, Sri Ganganagar.',
     intro: [
       'The UK visa system is run by the Home Office and explained on GOV.UK. Indian nationals generally need a visa before travelling to the UK for study or a visit.',
-      'Aman Maan coordinates enquiries at NeoCAN in Sri Ganganagar and confirms what support is available for your case. This page is general destination information, not a promise of any service or visa decision.',
+      'Aman Maan personally oversees your application at NeoCAN in Sri Ganganagar. NeoCAN helps with Student visas, Standard Visitor visas, settlement (PR) enquiries and IELTS preparation for the UK. This page is general information, not a promise of any visa decision, because UK Visas and Immigration decides every application.',
     ],
     considerations: [
       { title: 'Student visa', text: 'A Student visa application normally needs a Confirmation of Acceptance for Studies (CAS) from a licensed student sponsor, plus evidence of funds and English ability set out on GOV.UK.' },
@@ -299,7 +300,7 @@ const guideCopy: Record<string, Pick<Country, 'seoTitle' | 'seoDescription' | 'i
     seoDescription: 'General guide to New Zealand student and visitor visas for applicants in India, with Immigration New Zealand links. Ask Aman Maan at NeoCAN.',
     intro: [
       'Immigration New Zealand (INZ) decides student and visitor visa applications. Indian passport holders generally need a visa before travelling to New Zealand.',
-      'Aman Maan coordinates enquiries at NeoCAN in Sri Ganganagar and confirms what support is available for your case. This is general information, not a promise of any service or outcome.',
+      'Aman Maan personally oversees your application at NeoCAN in Sri Ganganagar. NeoCAN helps with Student Visas, Visitor Visas, Resident Visa (PR) enquiries and IELTS preparation for New Zealand. This is general information, not a promise of any outcome, because INZ decides every application.',
     ],
     considerations: [
       { title: 'Student visa', text: 'A student visa application generally requires an offer of place from an approved education provider, plus evidence of funds, health and character as described by INZ.' },
@@ -319,7 +320,7 @@ const guideCopy: Record<string, Pick<Country, 'seoTitle' | 'seoDescription' | 'i
     seoDescription: 'General guide to US student (F-1/M-1) and visitor (B-1/B-2) visas for applicants in India, with US government links. Ask Aman Maan at NeoCAN.',
     intro: [
       'US visas are decided by the Department of State through the US Embassy and Consulates in India. Indian citizens need a visa for study and for most visits, and an in-person interview is normally part of the process.',
-      'Aman Maan coordinates enquiries at NeoCAN in Sri Ganganagar and confirms what support is available. This is general information, not a promise of any service or visa decision.',
+      'Aman Maan personally oversees your application at NeoCAN in Sri Ganganagar. NeoCAN helps with F-1 student visas, B-2 visitor visas, green card enquiries and IELTS preparation for the USA. This is general information, not a promise of any visa decision, because the consular officer or USCIS decides every case.',
     ],
     considerations: [
       { title: 'Student visas', text: 'F-1 and M-1 student visas generally require admission to a school certified by the Student and Exchange Visitor Program (SEVP) and a Form I-20 from that school. The SEVIS fee and the DS-160 application are part of the process.' },
@@ -346,18 +347,18 @@ const genericProcess = [
   { title: 'Confirm what NeoCAN can do', text: 'Aman Maan confirms whether NeoCAN can assist with your specific case.' },
   { title: 'Follow up', text: 'He oversees communication about the next step.' },
 ];
-const checked = { title: 'Information last checked', text: 'Official pages were last reviewed on 13 November 2026. Rules, fees and appointment windows change, so confirm them on the official source before you act.' };
+const checked = { title: 'Information last checked', text: 'Official pages were last reviewed between 13 and 16 November 2026. Where an official page could not be opened, this guide says so. Rules, fees and appointment windows change, so confirm them on the official source before you act.' };
 const availFaq = (name: string) => ({ q: `Does NeoCAN offer a specific ${name} visa service?`, a: 'This page is general destination information. Ask Aman Maan to confirm what NeoCAN can help with for your case. No visa outcome is guaranteed.' });
 
 const newGuides: Country[] = [
   {
     slug: 'cyprus', name: 'Cyprus', code: 'CY', group: 'Europe', tone: 'navy', regulated: null, services: [], process: genericProcess,
-    blurb: 'General Cyprus study and visitor information for applicants in India. Ask NeoCAN to confirm current service availability.',
+    blurb: 'Study entry permits, visitor and tourist visa checks, residence enquiries and IELTS help for Cyprus, with official steps for applicants in India.',
     seoTitle: 'Cyprus Student & Visitor Visa Info for India | NeoCAN',
-    seoDescription: 'General guide to studying in or visiting Cyprus from India, based on official sources. Ask Aman Maan at NeoCAN, Sri Ganganagar, about availability.',
+    seoDescription: 'Guide to studying in or visiting Cyprus from India, based on official sources, with NeoCAN help in Sri Ganganagar overseen by Aman Maan.',
     intro: [
       'Cyprus is an EU member state but is not part of the Schengen area, so it applies its own entry rules. Study entry for students from outside the EU is handled through the Civil Registry and Migration Department (CRMD).',
-      'Aman Maan coordinates enquiries at NeoCAN in Sri Ganganagar. This guide is general information and does not confirm that NeoCAN offers a Cyprus-specific service.',
+      'Aman Maan personally oversees your application at NeoCAN in Sri Ganganagar. NeoCAN helps with student entry permits, visitor and tourist visa checks, residence permit enquiries and IELTS preparation for Cyprus. This guide is general information, not a promise of any outcome, because the Cypriot authorities decide every application.',
     ],
     considerations: [
       { title: 'Student entry', text: 'The Cyprus Ministry of Education states that students from non-EU countries need a visa or entry permit from the Civil Registry and Migration Department. It advises contacting the Cyprus diplomatic mission in your country for entry procedures.' },
@@ -375,17 +376,17 @@ const newGuides: Country[] = [
   },
   {
     slug: 'italy', name: 'Italy', code: 'IT', group: 'Europe', tone: 'red', regulated: null, services: [], process: genericProcess,
-    blurb: 'General Italy study and tourist visa information for applicants in India. Ask NeoCAN to confirm current service availability.',
+    blurb: 'Schengen and study visas, residence enquiries and IELTS help for Italy, with official steps for applicants in India.',
     seoTitle: 'Italy Study & Tourist Visa Info for India | NeoCAN',
-    seoDescription: 'General guide to Italy visas for applicants in India: Schengen short stays and study beyond 90 days, with official links. Ask Aman Maan at NeoCAN.',
+    seoDescription: 'Guide to Italy visas for applicants in India: Schengen short stays and study beyond 90 days, with official links and NeoCAN help overseen by Aman Maan.',
     intro: [
-      'Italy is part of the Schengen area. Short visits of up to 90 days in any 180-day period are covered by a Schengen visa, while longer stays such as a university course use a national visa. Italian visas for Indian applicants are handled through the Italian Embassy and Consulates in India.',
-      'Aman Maan coordinates enquiries at NeoCAN in Sri Ganganagar. This guide is general information and does not confirm that NeoCAN offers an Italy-specific service.',
+      'Italy is part of the Schengen area. Short visits of up to 90 days in any 180-day period are covered by a Schengen visa, while longer stays such as a university course use a national visa. Italian visas are issued by the Italian diplomatic or consular office competent for your place of stable residence.',
+      'Aman Maan personally oversees your application at NeoCAN in Sri Ganganagar. NeoCAN helps with Schengen visas, national study visas, residence enquiries and IELTS preparation for Italy. This guide is general information, not a promise of any outcome, because the Italian authorities decide every application.',
     ],
     considerations: [
-      { title: 'Short visits', text: 'The Italian Ministry of Foreign Affairs describes the Schengen (type C) visa for stays of up to 90 days in any 180-day period. It can be issued for one, two or multiple entries, and holding a visa does not give an automatic right of entry. Check the Italian mission for the document list, fees and appointment process.' },
-      { title: 'Study beyond 90 days', text: 'The national (type D) visa covers stays over 90 days. Italy’s visa portal lists study types such as a single university course, university enrolment, post-graduate study, professional training and exchange programmes, and states that a type D visa lasts 91 to 365 days. Confirm the document checklist with the Italian mission.' },
-      { title: 'Where to read the rules', text: 'Italy’s visa portal, Vistoperitalia, has a guided questionnaire. The Consulate in Kolkata states that Italian visas for India are issued by the Embassy in New Delhi or the Consulates in Kolkata, Mumbai or Bangalore, lists VFS Global application points for its own area, and says using the outsourcing partner is not mandatory. Check which office covers your place of residence.' },
+      { title: 'Short visits', text: 'The Italian Ministry of Foreign Affairs describes the Schengen (type C) visa for stays of up to 90 days in any 180-day period. Check the Italian mission that covers you for the document list, fees and appointment process.' },
+      { title: 'Study beyond 90 days', text: 'The national (type D) visa covers stays over 90 days. Italy’s visa portal lists study purposes such as university enrolment, a single university course and post-graduate study. Confirm the document checklist with the Italian mission.' },
+      { title: 'Where to read the rules', text: 'Italy’s visa portal, Vistoperitalia, is the official source. It sends applicants to the Italian mission competent for their place of stable residence. We could not confirm from an official page which office covers Rajasthan, so check which office covers you.' },
       checked,
     ],
     official: [{ label: 'Italian Ministry of Foreign Affairs: types of visa and duration', url: 'https://www.esteri.it/en/servizi-opportunita/ingressosoggiornoinitalia/visto_ingresso/tipologie_visto_durata/' }, { label: 'Vistoperitalia: Italian visa portal', url: 'https://vistoperitalia.esteri.it/home.aspx' }, { label: 'Consulate General of Italy, Kolkata: visa information', url: 'https://conscalcutta.esteri.it/en/servizi-consolari-e-visti/servizi-per-il-cittadino-straniero/visti' }, { label: 'Italian Ministry of Foreign Affairs', url: 'https://www.esteri.it/en/' }],
@@ -397,16 +398,16 @@ const newGuides: Country[] = [
   },
   {
     slug: 'netherlands', name: 'Netherlands', code: 'NL', group: 'Europe', tone: 'navy', regulated: null, services: [], process: genericProcess,
-    blurb: 'General Netherlands student and short-stay visa information for applicants in India, based on the Dutch IND. Ask NeoCAN about availability.',
+    blurb: 'Student residence permit and MVV, short-stay visas, residence enquiries and IELTS help for the Netherlands, based on the Dutch IND.',
     seoTitle: 'Netherlands Student Visa Info for India | NeoCAN',
     seoDescription: 'How the Dutch student residence permit and MVV work, based on the IND, plus short-stay visa pointers. Ask Aman Maan at NeoCAN, Sri Ganganagar.',
     intro: [
       'The Immigration and Naturalisation Service (IND) decides residence permits for study in the Netherlands. For a student residence permit, the IND states that only the educational institution can submit the application on the student’s behalf.',
-      'Aman Maan coordinates enquiries at NeoCAN in Sri Ganganagar. This guide is general information and does not confirm that NeoCAN offers a Netherlands-specific service.',
+      'Aman Maan personally oversees your application at NeoCAN in Sri Ganganagar. NeoCAN helps with the student residence permit and MVV, Schengen short-stay visas, residence enquiries and IELTS preparation for the Netherlands. This guide is general information, not a promise of any outcome, because the IND and the Dutch embassy decide every application.',
     ],
     considerations: [
       { title: 'Student residence permit', text: 'The IND page says a provisional residence permit (MVV) is needed and that the institution applies for the MVV and the student residence permit. The MVV sticker is placed by the Dutch representation and is valid for 90 days.' },
-      { title: 'Fee', text: 'The IND page showed an application cost of €254, paid through the educational institution. Confirm the current amount on the IND website.' },
+      { title: 'Fee', text: 'The IND fee page lists €254 for a first application for study, paid through the educational institution. The IND says its fees change each year on 1 January, so confirm the amount for the year you apply.' },
       { title: 'Short stays', text: 'The IND says that in most cases a visa is needed to travel to the Netherlands and that it is requested at the Dutch representation in the country where you live. Check Netherlands Worldwide for the rule that applies to Indian nationals.' },
       checked,
     ],
@@ -419,16 +420,16 @@ const newGuides: Country[] = [
   },
   {
     slug: 'russia', name: 'Russia', code: 'RU', group: 'Europe', tone: 'red', regulated: null, services: [], process: genericProcess,
-    blurb: 'General Russia visa information for applicants in India. Check official sources and Government of India advisories before planning.',
+    blurb: 'E-visa and visa help, residence enquiries and IELTS help for Russia. Check official sources and Government of India advisories before planning.',
     seoTitle: 'Russia Visa Information for Indians | NeoCAN',
     seoDescription: 'General Russia e-visa facts from the official portal and a pointer to Government of India advisories. Ask Aman Maan at NeoCAN about availability.',
     intro: [
       'Russia operates an electronic visa for citizens of countries on a list set by the Russian government, and India appears on the official e-visa country list. Check the portal and the Russian Embassy in India for the current conditions and for any other visa arrangements.',
-      'Before planning any travel, read the Government of India’s current advisory for Russia. Aman Maan coordinates enquiries at NeoCAN in Sri Ganganagar; this guide is general information and does not confirm that NeoCAN offers a Russia-specific service.',
+      'Before planning any travel, read the Government of India’s current advisory for Russia. Aman Maan personally oversees your application at NeoCAN in Sri Ganganagar. NeoCAN helps with e-visa and visa applications, residence enquiries and IELTS preparation for Russia. This guide is general information, not a promise of any outcome, because the Russian authorities decide every application.',
     ],
     considerations: [
       { title: 'Check the advisory first', text: 'The Ministry of External Affairs lists a travel advisory for Indians travelling to Russia. Read the current advisory before you make plans.' },
-      { title: 'E-visa basics', text: 'The official portal says the e-visa is single-entry, valid for 120 days from issue, with a stay of up to 30 days from entry. Applications are made between 86 and 4 days before arrival, with processing of up to 4 calendar days.' },
+      { title: 'E-visa basics', text: 'The official portal says the e-visa is single-entry, valid for 120 days from issue. Applications are made between 86 and 4 days before arrival. The permitted stay is shown differently on the Government of India’s page, so confirm it on the portal.' },
       { title: 'Other conditions', text: 'The portal lists a passport valid for at least 6 months and medical insurance, with exemptions by reciprocity. A regular visa in the passport follows its own rules.' },
       { title: 'Study routes', text: 'Check the Russian Embassy in India and the Indian Embassy in Moscow for study entry requirements. This guide does not describe them.' },
       checked,
@@ -436,18 +437,18 @@ const newGuides: Country[] = [
     official: [{ label: 'Russia unified e-visa portal', url: 'https://evisa.kdmid.ru/' }, { label: 'Official list of e-visa eligible countries', url: 'https://electronic-visa.kdmid.ru/country.html' }, { label: 'Government of India: travel advisories', url: 'https://www.mea.gov.in/travel-advisories' }],
     faqs: [
       { q: 'Can Indian citizens use the Russian e-visa?', a: 'India appears on the official e-visa country list on the Russian electronic visa site. Check the portal for the current conditions before applying. This page does not describe any visa-free arrangement.' },
-      { q: 'How long can I stay on the Russian e-visa?', a: 'The portal states up to 30 days from the date of entry. Arrival and departure days each count as a day.' },
+      { q: 'How long can I stay on the Russian e-visa?', a: 'The Russian portal and the Government of India’s page show the permitted stay differently, so confirm the stay limit on the portal when you apply.' },
       availFaq('Russia'),
     ],
   },
   {
     slug: 'czech-republic', name: 'Czech Republic (Czechia)', code: 'CZ', group: 'Europe', tone: 'navy', regulated: null, services: [], process: genericProcess,
-    blurb: 'General Czech Republic study and Schengen visa information for applicants in India, from the Embassy in New Delhi. Ask NeoCAN about availability.',
+    blurb: 'Long-term study visas, Schengen short-stay visas, residence enquiries and IELTS help for the Czech Republic, from the Embassy in New Delhi.',
     seoTitle: 'Czech Republic Study Visa Info for India | NeoCAN',
     seoDescription: 'How Indian applicants book Czech long-term study visa appointments, fees and the Schengen route, from the Czech Embassy in New Delhi. Ask NeoCAN.',
     intro: [
       'The Czech Republic is part of the Schengen area. For stays longer than three months, such as a university programme, Indian applicants apply for a long-term visa or long-term residence permit through the Czech Embassy in New Delhi.',
-      'Aman Maan coordinates enquiries at NeoCAN in Sri Ganganagar. This guide is general information and does not confirm that NeoCAN offers a Czech Republic-specific service.',
+      'Aman Maan personally oversees your application at NeoCAN in Sri Ganganagar. NeoCAN helps with long-term study visas, Schengen short-stay visas, residence enquiries and IELTS preparation for the Czech Republic. This guide is general information, not a promise of any outcome, because the Czech authorities decide every application.',
     ],
     considerations: [
       { title: 'Appointment registration for study', text: 'The Embassy page says Indian applicants register by email during fixed windows, one email per applicant, with a passport copy and proof of the study purpose. Emails outside the window are disqualified. The page listed 14 December 2026 as the next window.' },
@@ -464,12 +465,12 @@ const newGuides: Country[] = [
   },
   {
     slug: 'greece', name: 'Greece', code: 'GR', group: 'Europe', tone: 'red', regulated: null, services: [], process: genericProcess,
-    blurb: 'General Greece visa information for applicants in India. Ask NeoCAN to confirm current service availability.',
+    blurb: 'Schengen and study visas, residence enquiries and IELTS help for Greece, with official basics for applicants in India.',
     seoTitle: 'Greece Visa Information for Indians | NeoCAN',
     seoDescription: 'General guide to Greece visas for applicants in India: Schengen short stays and longer study, with official links. Ask Aman Maan at NeoCAN.',
     intro: [
-      'Greece is part of the Schengen area. Short visits of up to 90 days in any 180-day period are covered by a Schengen visa; longer stays such as study use a national visa. Visa applications from India go through the Greek diplomatic mission.',
-      'Aman Maan coordinates enquiries at NeoCAN in Sri Ganganagar. This guide is general information and does not confirm that NeoCAN offers a Greece-specific service.',
+      'Greece is part of the Schengen area. Short visits of up to 90 days in any 180-day period are covered by a Schengen visa; longer stays such as study use a national visa. Check the Greek Ministry of Foreign Affairs and the Embassy of Greece in New Delhi for where Indian applicants submit an application.',
+      'Aman Maan personally oversees your application at NeoCAN in Sri Ganganagar. NeoCAN helps with Schengen visas, national study visas, residence enquiries and IELTS preparation for Greece. This guide is general information, not a promise of any outcome, because the Greek authorities decide every application.',
     ],
     considerations: [
       { title: 'Visa requirement', text: 'EU Regulation 2018/1806 lists the countries whose nationals need a visa to cross the Schengen external borders; Indian passport holders apply for a Schengen visa for short stays. Check the Regulation on EUR-Lex for the legal basis.' },
@@ -487,12 +488,12 @@ const newGuides: Country[] = [
   },
   {
     slug: 'mauritius', name: 'Mauritius', code: 'MU', group: 'Africa & Indian Ocean', tone: 'navy', regulated: null, services: [], process: genericProcess,
-    blurb: 'General Mauritius entry and study information for applicants in India, from the Passport and Immigration Office. Ask NeoCAN about availability.',
+    blurb: 'Entry checks, study permit and residence enquiries and IELTS help for Mauritius, from the Passport and Immigration Office.',
     seoTitle: 'Mauritius Entry & Study Info for India | NeoCAN',
     seoDescription: 'Mauritius entry requirements from the Passport and Immigration Office and where to check visa and study permit rules. Ask Aman Maan at NeoCAN.',
     intro: [
       'The Passport and Immigration Office of Mauritius publishes the entry requirements and visa information for visitors. Check it, or the Mauritian diplomatic mission, for the rule that applies to Indian passport holders and for your purpose of travel.',
-      'Aman Maan coordinates enquiries at NeoCAN in Sri Ganganagar. This guide is general information and does not confirm that NeoCAN offers a Mauritius-specific service.',
+      'Aman Maan personally oversees your application at NeoCAN in Sri Ganganagar. NeoCAN helps with entry checks, study permit enquiries, residence enquiries and IELTS preparation for Mauritius. This guide is general information, not a promise of any outcome, because the Mauritian authorities decide every application.',
     ],
     considerations: [
       { title: 'Entry requirements', text: 'The Passport and Immigration Office lists for every traveller: a passport valid beyond the intended stay, a valid return ticket, adequate funds, and a confirmed hotel booking or accommodation sponsorship.' },
@@ -521,7 +522,7 @@ const baseCountries: Country[] = [...activeSlugs.map((slug) => {
     services: [],
   };
 }), ...newGuides];
-export const countries: Country[] = baseCountries.map((c) => ({ ...c, ...(countryExtras[c.slug] ?? {}) }));
+export const countries: Country[] = baseCountries.map((c) => { const merged = { ...c, ...(countryExtras[c.slug] ?? {}) }; const wf = workflowFaqs(c.slug); return wf.length ? { ...merged, faqs: [...wf, ...merged.faqs] } : merged; });
 // Slug lookup for the homepage and directory (labels keep the owner-supplied names).
 export const guideSlugByLabel: Record<string, string> = { Cyprus: 'cyprus', Italy: 'italy', Netherlands: 'netherlands', Russia: 'russia', 'Czech Republic (Czechia)': 'czech-republic', Greece: 'greece', Mauritius: 'mauritius' };
 

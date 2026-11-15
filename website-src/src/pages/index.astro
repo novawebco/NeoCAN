@@ -63,7 +63,7 @@ const destinationDescriptions: Record<string, string> = {
   </div></section>
 
   <section class="section" id="destinations"><div class="container-x">
-    <SectionHeading title="Destinations you can ask about" lead="Each guide gives general information and links to the official authority. NeoCAN confirms which services it can help with for your destination when you enquire." />
+    <SectionHeading title="Destinations you can ask about" lead="Each guide gives general information, official route names and links to the official authority. NeoCAN helps with its services for all 11 destinations." />
     <ul class="mt-8 grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
       {countries.map((c) => {
         const image = destinationImages[c.slug as keyof typeof destinationImages] ?? pendingImages[c.name];
@@ -74,7 +74,7 @@ const destinationDescriptions: Record<string, string> = {
         </a></li>;
       })}
     </ul>
-    <p class="mt-5 text-sm">A country page does not confirm that NeoCAN offers a specific service or visa route there. <a href="/countries/" class="text-brand-strong underline">View the destination directory</a>.</p>
+    <p class="mt-5 text-sm">Each country page lists the steps you must do in person for that destination. <a href="/countries/" class="text-brand-strong underline">View the destination directory</a>.</p>
   </div></section>
 
   <RcicPartners />

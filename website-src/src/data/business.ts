@@ -5,7 +5,7 @@ export const business = {
   cin: 'U74999RJ2022PTC081556',
   tagline: 'Visa, study and immigration enquiries in Sri Ganganagar',
   description:
-    'NeoCAN is based in Sri Ganganagar. Aman Maan coordinates enquiries about student visas, visitor and tourist visas, IELTS, visa and immigration-related support. Specific scope and destination availability are confirmed individually.',
+    'NeoCAN is based in Sri Ganganagar. Aman Maan personally oversees the application process for immigration and visa assistance, including student, visitor and tourist visas, PR assistance and IELTS preparation help. NeoCAN reviews documents, helps prepare forms and books required appointments, and Aman explains who submits each application.',
   address: {
     street: '69, H Block',
     city: 'Sri Ganganagar',

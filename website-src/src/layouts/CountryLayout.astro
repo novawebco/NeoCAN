@@ -7,13 +7,12 @@ import FAQAccordion from '../components/FAQAccordion.astro';
 import RelatedLinks from '../components/RelatedLinks.astro';
 import RegulatoryNotice from '../components/RegulatoryNotice.astro';
 import ContactBanner from '../components/ContactBanner.astro';
-import ServiceCard from '../components/ServiceCard.astro';
 import FeatureCard from '../components/FeatureCard.astro';
 import RcicPartners from '../components/RcicPartners.astro';
 import Icon from '../components/Icon.astro';
+import CountryHelp from '../components/CountryHelp.astro';
 import Button from '../components/Button.astro';
 import { business } from '../data/business';
-import { getService } from '../data/services';
 import type { Country } from '../data/countries';
 import canadaHero from '../assets/editorial/canada-toronto-destination.webp';
 import ukHero from '../assets/editorial/united-kingdom-london-destination.webp';
@@ -28,7 +27,6 @@ import greeceHero from '../assets/editorial/greece-athens-destination.webp';
 import mauritiusHero from '../assets/editorial/mauritius-le-morne-destination.webp';
 interface Props { country: Country }
 const { country: c } = Astro.props;
-const svcs = c.services.map(getService).filter(Boolean);
 const xs: never[] = [];
 const path = `/countries/${c.slug}/`;
 const heroImages = {
@@ -48,7 +46,9 @@ const hero = heroImages[c.slug as keyof typeof heroImages];
 const waHref = c.whatsappText ? `${business.whatsapp}?text=${encodeURIComponent(c.whatsappText)}` : business.whatsapp;
 ---
 <Base title={c.seoTitle ?? `${c.name} Destination Information | NeoCAN Sri Ganganagar`} description={c.seoDescription ?? c.blurb} ogImage={hero?.social}>
-  <InnerPageHero eyebrow="Destination" title={c.h1 ?? `${c.name}: information for applicants in India`} lead={c.answer ?? c.blurb} crumbs={[{ label: 'Countries', href: '/countries/' }, { label: c.name, href: path }]} icon="globe" tone={c.tone} chips={[c.name, 'Service availability to confirm']} image={hero?.image} imageAlt={hero?.alt} cta={{ label: c.ctaLabel ?? 'Discuss your plans', href: c.ctaLabel ? '/contact/' : '/consultation/' }} cta2={{ label: 'Contact us', href: '/contact/' }} />
+  <InnerPageHero eyebrow="Destination" title={c.h1 ?? `${c.name}: information for applicants in India`} lead={c.answer ?? c.blurb} crumbs={[{ label: 'Countries', href: '/countries/' }, { label: c.name, href: path }]} icon="globe" tone={c.tone} chips={[c.name, 'Study, visit, tourist and PR help']} image={hero?.image} imageAlt={hero?.alt} cta={{ label: c.ctaLabel ?? 'Discuss your plans', href: c.ctaLabel ? '/contact/' : '/consultation/' }} cta2={{ label: 'Contact us', href: '/contact/' }} />
+
+  <CountryHelp slug={c.slug} name={c.name} />
 
   <section class="section">
     <div class="container-x grid lg:grid-cols-2 gap-12 items-start">
@@ -73,18 +73,11 @@ const waHref = c.whatsappText ? `${business.whatsapp}?text=${encodeURIComponent(
 
   <section class="section section-mist">
     <div class="container-x grid lg:grid-cols-2 gap-10 items-center">
-      <div><SectionHeading eyebrow="Discuss your destination" title={`Ask Aman Maan about ${c.name}`} lead={`Share why you are considering ${c.name}, the service you need and where you are in the process. Aman Maan coordinates the initial NeoCAN enquiry and follow-up.`} />
-        {c.askAman && <div class="mt-6 rounded-2xl bg-white border border-line p-5"><p class="font-display font-bold text-ink">{c.askTitle ?? `Questions to ask Aman about ${c.name}`}</p><ul class="mt-2 space-y-1.5 list-disc pl-5 text-[.9375rem]">{c.askAman.map((q) => <li>{q}</li>)}</ul></div>}
+      <div><SectionHeading eyebrow="Discuss your case" title={`Talk to Aman Maan about your ${c.name} plan`} lead={`Call or WhatsApp to talk through your own situation: why you are considering ${c.name}, where you are in the process and what you already have. The steps above are the same for every applicant; your case decides which documents and appointments apply.`} />
+        {c.askAman && <div class="mt-6 rounded-2xl bg-white border border-line p-5"><p class="font-display font-bold text-ink">{c.askTitle ?? `Things to talk through about ${c.name}`}</p><ul class="mt-2 space-y-1.5 list-disc pl-5 text-[.9375rem]">{c.askAman.map((q) => <li>{q}</li>)}</ul></div>}
         {c.whatsappText && <div class="mt-5"><Button href={waHref} external variant="primary" icon="whatsapp">WhatsApp about {c.name}</Button></div>}
       </div>
       <div class="card p-6 sm:p-8"><h2 class="t-card">{c.readyTitle ?? 'What to have ready'}</h2><p class="mt-3">{c.readyText ?? 'Your purpose, intended timing, education or work background where relevant, and any existing offer, application or refusal letter. Requirements differ by visa category; check official sources below before acting.'}</p><div class="mt-5"><a class="link-arrow" href="/consultation/">How consultations work <Icon name="arrow" size={16} /></a></div></div>
-    </div>
-  </section>
-
-  <section class="section section-soft">
-    <div class="container-x">
-      <SectionHeading eyebrow="Availability" title={`Ask about ${c.name}`} lead="Tell Aman Maan your purpose. NeoCAN will confirm whether it can assist with the specific service and what support is available." />
-      <div class="mt-10 grid sm:grid-cols-2 lg:grid-cols-3 gap-6">{svcs.map((s) => <div class="reveal"><ServiceCard service={s!} compact /></div>)}</div>
     </div>
   </section>
 

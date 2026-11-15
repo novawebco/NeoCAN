@@ -38,7 +38,7 @@ const steps = [
       <div>
         <SectionHeading eyebrow="Service selection" title="Choose the area you are interested in" />
         <ul class="mt-6 space-y-3">{categories.map((c) => <li><a class="card hover block p-4" href={`/services/#${c.id}`}><span class="font-display font-bold text-ink">{c.label}</span><span class="block text-sm">{c.blurb}</span></a></li>)}</ul>
-        <div class="mt-8 card p-5 text-[.9375rem]"><p class="font-display font-bold text-ink">Contact options</p><p class="mt-2">Phone: <a class="text-brand-strong underline" href={`tel:${business.phone}`}>{business.phoneDisplay}</a><br />Email: <a class="text-brand-strong underline" href={`mailto:${business.email}`}>{business.email}</a><br />Office: {business.address.full}</p><p class="mt-2 text-xs">Consultation fees: please ask the team. Online booking is not yet available.</p></div>
+        <div class="mt-8 card p-5 text-[.9375rem]"><p class="font-display font-bold text-ink">Contact options</p><p class="mt-2">Phone: <a class="text-brand-strong underline" href={`tel:${business.phone}`}>{business.phoneDisplay}</a><br />Email: <a class="text-brand-strong underline" href={`mailto:${business.email}`}>{business.email}</a><br />Office: {business.address.full}</p><p class="mt-2 text-xs">Before you agree to any paid work, Aman Maan will explain NeoCAN’s service fee and what it covers. Online booking is not yet available.</p></div>
       </div>
       <ConsultationForm id="consult" consultation />
     </div>
