@@ -1,16 +1,64 @@
 ---
 import LegalLayout from '../layouts/LegalLayout.astro';
-const toc = [{ id: 'use', label: 'Using this website' }, { id: 'services', label: 'Our services' }, { id: 'outcomes', label: 'No guarantees' }, { id: 'links', label: 'External links' }, { id: 'fees', label: 'Fees and refunds' }];
+import { business } from '../data/business';
+const toc = [
+  { id: 'use', label: 'Using this website' },
+  { id: 'services', label: 'What NeoCAN provides' },
+  { id: 'you', label: 'What you need to do' },
+  { id: 'fees', label: 'Fees and written quotes' },
+  { id: 'refunds', label: 'Refunds and cancellations' },
+  { id: 'outcomes', label: 'No guarantees' },
+  { id: 'links', label: 'External links' },
+  { id: 'concerns', label: 'Raising a concern' },
+];
 ---
-<LegalLayout title="Terms of Service" description="Terms for using the NeoCAN Global Migration Consulting website: information-only content, no guaranteed outcomes, and external links." toc={toc} path="/terms/">
+<LegalLayout title="Terms of Service" description="What NeoCAN provides, what you need to do, fees, written quotes, refunds, cancellations and how to raise a concern." toc={toc} path="/terms/" effective="16 November 2026" draft={false}>
   <h2 id="use">Using this website</h2>
   <p>This website provides general information about NeoCAN's services. By using it you agree to these terms.</p>
-  <h2 id="services">Our services</h2>
-  <p>NeoCAN coordinates enquiries and shares general information about student visa, visitor visa, IELTS and PR topics. The specific services, scope, destination availability and any fee for your case are confirmed individually before work begins. Information here is not legal advice. Regulated immigration advice or representation must come from a person authorised in the relevant country.</p>
+
+  <h2 id="services">What NeoCAN provides</h2>
+  <p>NeoCAN provides immigration and visa assistance, including student, visitor and tourist visa assistance, PR assistance and IELTS preparation help. Aman Maan personally oversees your application. NeoCAN reviews your documents and helps prepare your forms, and books required appointments. Aman will explain who submits your application and which steps you need to complete yourself.</p>
+  <p>For Canadian immigration matters, NeoCAN works with a Regulated Canadian Immigration Consultant (RCIC) partner.</p>
+  <p>Information on this website is not legal advice. Regulated immigration advice or representation must come from a person authorised in the relevant country.</p>
+
+  <h2 id="you">What you need to do</h2>
+  <p>Aman will tell you what you need to provide, sign and attend. In general, you need to:</p>
+  <ul>
+    <li>give Aman the information and documents he asks for;</li>
+    <li>check your answers and sign what he tells you to sign;</li>
+    <li>attend in person any appointment he says you must attend, such as giving fingerprints or attending a visa interview; and</li>
+    <li>pay any government, appointment or test fees that he explains you will pay separately.</li>
+  </ul>
+  <p>Please do not send passwords or one-time codes to NeoCAN.</p>
+
+  <h2 id="fees">Fees and written quotes</h2>
+  <h3>What am I paying for?</h3>
+  <p>Before you agree to paid work, Aman Maan will explain your service fee, what it covers, and which government, appointment or test fees you’ll pay separately.</p>
+  <h3>Will I get a written quote before I pay?</h3>
+  <p>Yes. Before you pay, we’ll send you a written quote showing the total NeoCAN service fee, the charge for each stage, and any government, appointment or test fees you’ll pay separately.</p>
+
+  <h2 id="refunds">Refunds and cancellations</h2>
+  <p>These answers apply to NeoCAN’s service fee.</p>
+  <h3>Can I get a refund if I cancel before NeoCAN starts work?</h3>
+  <p>Yes. If you cancel before we start work, we’ll refund your full NeoCAN service fee.</p>
+  <h3>How will you calculate my refund if I cancel after work starts?</h3>
+  <p>Before you pay, we’ll give you a written quote showing the cost of each stage. If you cancel after we start, we’ll deduct the agreed charge for the work we’ve completed and refund the rest of the NeoCAN service fee you paid.</p>
+  <h3>Will I get a refund if my visa is refused?</h3>
+  <p>If we’ve completed all the work in your quote, we won’t refund the service fee solely because your visa was refused. If any agreed work remains unfinished, we’ll refund the amount you paid for that work.</p>
+
   <h2 id="outcomes">No guarantees</h2>
-  <p>Visa and admission decisions are made by authorities and institutions. NeoCAN cannot guarantee any outcome.</p>
+  <p>Visa and admission decisions are made by authorities and institutions, and test results are decided by the test provider. NeoCAN cannot guarantee any outcome.</p>
+
   <h2 id="links">External links</h2>
   <p>Links to official or third-party websites are provided for convenience. NeoCAN is not responsible for their content.</p>
-  <h2 id="fees">Fees and refunds</h2>
-  <p>[Fee structure and refund or cancellation policy to be confirmed by the owner before publication.]</p>
+
+  <h2 id="concerns">Raising a concern</h2>
+  <p>If you have a concern about our service, please contact NeoCAN and tell us what happened. Include your name, the service or application involved and the date, so we can look into it. Aman Maan is NeoCAN’s primary contact.</p>
+  <ul>
+    <li>Phone: <a href={`tel:${business.phone}`}>{business.phoneDisplay}</a> (in India: {business.phoneLocal})</li>
+    <li>WhatsApp: <a href={business.whatsapp} rel="noopener noreferrer">{business.phoneDisplay}</a></li>
+    <li>Email: <a href={`mailto:${business.email}`}>{business.email}</a></li>
+    <li>Office: {business.address.full}</li>
+    <li>Hours: {business.hours}</li>
+  </ul>
 </LegalLayout>
