@@ -1,9 +1,13 @@
 ---
 import SectionHeading from './SectionHeading.astro';
-import { countryHelp, serviceGroups } from '../data/countryHelp';
+import Button from './Button.astro';
+import { countryHelp, serviceGroups, countryRoleAnswers } from '../data/countryHelp';
+import { ROLES_HEADING } from '../data/applicationRoles';
+import { business } from '../data/business';
 interface Props { slug: string; name: string }
 const { slug, name } = Astro.props;
 const h = countryHelp[slug];
+const roles = h ? countryRoleAnswers(slug) : [];
 const goals = h ? [
   { goal: 'I want to study', route: h.study },
   { goal: 'I want to visit family', route: h.visit },
@@ -12,9 +16,10 @@ const goals = h ? [
 ] : [];
 ---
 {h && (
+  <>
   <section class="section section-soft" id="how-neocan-helps">
     <div class="container-x">
-      <SectionHeading eyebrow="How NeoCAN helps" title={`What NeoCAN can do for your ${name} plan`} lead={`NeoCAN helps people in India who want to study, visit family, travel as a tourist or explore permanent residency in ${name}. Aman Maan personally oversees your application. The NeoCAN team reviews your documents, helps prepare your forms and books the appointments you need. Aman explains who submits your application.`} />
+      <SectionHeading eyebrow="How NeoCAN helps" title={`What NeoCAN can do for your ${name} plan`} lead={`NeoCAN helps people in India who want to study, visit family, travel as a tourist or explore permanent residency in ${name}. Aman Maan personally oversees your application. We’ll review your documents and help prepare your application forms.`} />
       <div class="mt-8 grid md:grid-cols-2 gap-5">
         {goals.map((g) => (
           <div class="card p-5 reveal">
@@ -39,7 +44,25 @@ const goals = h ? [
         </div>
       </div>
       {h.notice && <p class="mt-6 text-[.9375rem] rounded-2xl bg-white border border-line p-5">{h.notice}</p>}
-      <p class="mt-6 text-[.9375rem]">Want to talk about your own case? Call or WhatsApp NeoCAN and ask for Aman Maan. Every case is different, so he will tell you which documents to provide and which steps apply to you.</p>
     </div>
   </section>
+  <section class="section" id="who-does-what">
+    <div class="container-x">
+      <SectionHeading eyebrow="Your application" title={ROLES_HEADING} />
+      <div class="mt-8 grid gap-5 md:grid-cols-3">
+        {roles.map((r) => (
+          <div class="card p-5 reveal">
+            <h3 class="font-display font-bold text-ink">{r.q}</h3>
+            <p class="mt-2 text-[.9375rem]">{r.a}</p>
+          </div>
+        ))}
+      </div>
+      <p class="mt-6 text-[.9375rem]">Want to talk about your own case? Call or WhatsApp NeoCAN and ask for Aman Maan. Every case is different, so he will tell you which documents to provide and which steps apply to you.</p>
+      <div class="mt-4 flex flex-wrap gap-3">
+        <Button href={`tel:${business.phone}`} variant="primary" icon="phone">Call {business.phoneDisplay}</Button>
+        <Button href={business.whatsapp} external variant="secondary" icon="whatsapp">WhatsApp Aman Maan<span class="sr-only"> (opens in a new tab)</span></Button>
+      </div>
+    </div>
+  </section>
+  </>
 )}

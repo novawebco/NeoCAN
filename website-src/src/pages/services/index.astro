@@ -1,5 +1,6 @@
 ---
 import PageLayout from '../../layouts/PageLayout.astro';
+import { ROLE_SUBMIT } from '../../data/applicationRoles';
 import { Image } from 'astro:assets';
 import studyVisaImage from '../../assets/editorial/student-visa-assistance-india.webp';
 import ieltsImage from '../../assets/editorial/ielts-preparation-student.webp';
@@ -18,7 +19,7 @@ const serviceFaqs = [
   { q: 'What do the Immigration and Visa enquiries cover?', a: 'Immigration assistance and Visa assistance are broad categories. Immigration includes PR assistance. Visa includes Student Visa, Visitor Visa and Tourist Visa assistance. Tell Aman Maan your purpose and destination. He oversees the application process and tells you what to provide, what to sign and which appointments to attend in person. Regulated advice must come from a person authorised in the destination country.' },
   { q: 'Is there a separate Tourist Visa page?', a: 'No. Visitor Visa and Tourist Visa enquiries share one page because the support discussed is the same. The official visa category depends on the destination and your purpose.' },
   { q: 'Can NeoCAN help with PR (Permanent Residency)?', a: 'Yes. Aman Maan personally handles PR enquiries, discusses your requirements and coordinates the work. For Canadian immigration matters, NeoCAN works with a Regulated Canadian Immigration Consultant (RCIC) partner. Aman tells you what to provide, what to sign and which appointments to attend.' },
-  { q: 'Who will prepare and submit my application?', a: 'Aman Maan personally oversees your application. NeoCAN reviews your documents and helps prepare your forms. Aman will explain who submits your application and which steps you need to complete yourself.' },
+  ROLE_SUBMIT,
   { q: 'How much will I pay, and what does the fee cover?', a: 'Before you agree to any paid work, Aman Maan will explain NeoCAN’s service fee and what it covers. He’ll also explain which government, appointment or test fees you need to pay separately.' },
   { q: 'I live outside Sri Ganganagar. Can I speak to Aman?', a: 'Call NeoCAN and ask to speak with Aman Maan. If you’d prefer an online consultation, ask Aman whether it’s available for your case.' },
 ];
@@ -41,7 +42,7 @@ const serviceAlts: Record<string, string> = { Immigration: 'Illustrative applica
     </div>
     <div class="mt-14"><SectionHeading eyebrow="Umbrella enquiries" title="How Immigration and Visa enquiries work" lead="These are the two broad categories. The specific services sit under them, and no outcome is guaranteed." />
       <div class="mt-7 grid md:grid-cols-2 gap-5">
-        <div class="card p-6"><h3 class="t-card">Immigration</h3><p class="mt-3 text-sm">Use this when you are considering a longer move or stay abroad. Immigration assistance includes PR (Permanent Residency) assistance. Aman Maan personally oversees the application process, points you to the official authority and route names for your destination, and tells you what to provide and sign. NeoCAN reviews your documents, helps prepare your forms, books the appointments you need, and Aman explains who submits your application. For Canadian immigration matters NeoCAN works with an RCIC partner. This page does not advertise legal advice, eligibility opinions or representation.</p></div>
+        <div class="card p-6"><h3 class="t-card">Immigration</h3><p class="mt-3 text-sm">Use this when you are considering a longer move or stay abroad. Immigration assistance includes PR (Permanent Residency) assistance. Aman Maan personally oversees the application process, points you to the official authority and route names for your destination, and tells you what to provide and sign. NeoCAN reviews your documents and helps prepare your application forms. Aman tells you whether NeoCAN can book your appointment and who will submit your application. For Canadian immigration matters NeoCAN works with an RCIC partner. This page does not advertise legal advice, eligibility opinions or representation.</p></div>
         <div class="card p-6"><h3 class="t-card">Visa</h3><p class="mt-3 text-sm">Use this when you are not sure which visa fits. Tell Aman Maan your purpose, destination and timing. He directs you to the matching NeoCAN page, <a class="text-brand-strong underline" href="/services/study-visa/">Student Visa</a> or <a class="text-brand-strong underline" href="/services/visitor-visa/">Visitor and Tourist Visa</a>, and to the official source for the destination, and oversees follow-up.</p></div>
       </div>
       <p class="mt-6 text-sm">Official information by destination: {countries.map((c, i) => <><a class="text-brand-strong underline" href={`/countries/${c.slug}/`}>{c.name}</a>{i < countries.length - 1 ? ', ' : '.'}</>)}</p>

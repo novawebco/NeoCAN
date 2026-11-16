@@ -83,6 +83,7 @@ const waHref = s.whatsappText ? `${business.whatsapp}?text=${encodeURIComponent(
         {s.extraSections && s.extraSections.map((x) => (
           <div class="reveal">
             <h2 class="t-card !text-2xl">{x.title}</h2>
+            {x.qa && <div class="mt-5 grid gap-4">{x.qa.map((r) => <div class="card p-5"><h3 class="font-display font-bold text-ink">{r.q}</h3><p class="mt-2 text-[.9375rem]">{r.a}</p></div>)}</div>}
             <div class="prose-neo mt-4">{x.paragraphs?.map((t) => <p>{t}</p>)}</div>
             {x.links && <div class="mt-5 flex flex-wrap gap-3">{x.links.map((l) => <Button href={l.href} external={l.external} variant="secondary" arrow>{l.label}{l.external && <span class="sr-only"> (opens in a new tab)</span>}</Button>)}</div>}
           </div>

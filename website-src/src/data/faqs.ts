@@ -1,3 +1,4 @@
+import { ROLE_HELP, ROLE_SUBMIT, ROLE_YOU } from './applicationRoles';
 import type { Faq } from './services';
 export interface FaqGroup { id: string; label: string; items: Faq[] }
 export const faqGroups: FaqGroup[] = [
@@ -9,7 +10,7 @@ export const faqGroups: FaqGroup[] = [
   ] },
   { id: 'services', label: 'Services', items: [
     { q: 'Which service areas are current priorities?', a: 'Immigration, Visa, IELTS, Student Visa, PR, Visitor Visa and Tourist Visa. Immigration and Visa are broad categories: Immigration includes PR assistance, and Visa includes Student, Visitor and Tourist Visa assistance.' },
-    { q: 'Can NeoCAN help with a student visa enquiry?', a: 'Yes. NeoCAN reviews your documents, helps prepare your forms, books the appointments you need, and Aman explains who submits your application. Aman Maan oversees the process and tells you what to provide and sign.' },
+    { q: 'Can NeoCAN help with a student visa enquiry?', a: `Yes. ${ROLE_HELP.a} ${ROLE_SUBMIT.a}` },
     { q: 'Are Visitor Visa and Tourist Visa covered together?', a: 'Yes. Both labels share a short-visit information page. The official visa category depends on destination and purpose.' },
     { q: 'Does NeoCAN guarantee a visa or IELTS result?', a: 'No. Visa decisions are made by the relevant authority, and preparation cannot guarantee a test score.' },
     { q: 'Can NeoCAN help with PR (Permanent Residency)?', a: 'Yes. Aman Maan personally handles PR enquiries, discusses your requirements and coordinates the work. For Canadian immigration matters, NeoCAN works with a Regulated Canadian Immigration Consultant (RCIC) partner. Aman tells you what to provide, what to sign and which appointments to attend. No outcome is guaranteed.' },
@@ -24,10 +25,9 @@ export const faqGroups: FaqGroup[] = [
     { q: 'What should I share?', a: 'Your purpose, intended destination, timing and any relevant documents. Do not send passwords or one-time codes.' },
     { q: 'Can I book online?', a: 'Online booking is not currently available. Contact Aman Maan to arrange a discussion and confirm the format and any fee.' },
     { q: 'I live outside Sri Ganganagar. How can I speak to Aman?', a: 'Call NeoCAN and ask to speak with Aman Maan. If you’d prefer an online consultation, ask Aman whether it’s available for your case.' },
-    { q: 'Who will check my documents and fill in my forms?', a: 'NeoCAN will. Aman Maan personally oversees your application. The NeoCAN team checks your documents against the official requirements and fills in your forms using the information you give. Aman tells you which information and documents to provide.' },
-    { q: 'Who will prepare and submit my application?', a: 'Aman Maan personally oversees your application. NeoCAN reviews your documents and helps prepare your forms. Aman will explain who submits your application and which steps you need to complete yourself.' },
-    { q: 'Who will book my appointment?', a: 'NeoCAN books the appointments you need, where the booking system allows it. Aman tells you which appointments you must attend in person, such as giving fingerprints or attending an interview.' },
-    { q: 'What will I need to do myself?', a: 'Give Aman the information and documents he asks for, check your answers, sign what he tells you to sign and attend in person the appointments he says you must attend.' },
+    ROLE_HELP,
+    ROLE_SUBMIT,
+    ROLE_YOU,
     { q: 'How much will I pay, and what does the fee cover?', a: 'Before you agree to any paid work, Aman Maan will explain NeoCAN’s service fee and what it covers. He’ll also explain which government, appointment or test fees you need to pay separately.' },
   ] },
 ];

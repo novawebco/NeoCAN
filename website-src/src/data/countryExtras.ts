@@ -101,7 +101,7 @@ export const countryExtras: Record<string, CountryExtra> = {
     "faqs": [
       {
         "q": "I’m visiting family in Canada. What should I tell Aman?",
-        "a": "Tell him who you are visiting, their status in Canada, how you are related, your dates and who will pay. NeoCAN then reviews your documents and helps prepare the visitor visa application. Aman explains who submits it and tells you what to provide and sign."
+        "a": "Tell him who you are visiting, their status in Canada, how you are related, your dates and who will pay. NeoCAN then reviews your documents and helps prepare the visitor visa application. Aman tells you who will submit it."
       },
       {
         "q": "Do I need an invitation letter for a Canadian visitor visa?",
@@ -214,7 +214,7 @@ export const countryExtras: Record<string, CountryExtra> = {
     "faqs": [
       {
         "q": "I’m visiting family in the UK. What should I tell Aman?",
-        "a": "Tell him who you are visiting, their status in the UK, how you are related, your dates, where you will stay and who will pay. NeoCAN then reviews your documents and helps prepare the Standard Visitor visa application. Aman explains who submits it and tells you what to provide and sign."
+        "a": "Tell him who you are visiting, their status in the UK, how you are related, your dates, where you will stay and who will pay. NeoCAN then reviews your documents and helps prepare the Standard Visitor visa application. Aman tells you who will submit it."
       },
       {
         "q": "How long can I stay on a UK visitor visa?",
@@ -315,7 +315,7 @@ export const countryExtras: Record<string, CountryExtra> = {
     "faqs": [
       {
         "q": "I’m visiting family in New Zealand. What should I tell Aman?",
-        "a": "Tell him who you are visiting, their status in New Zealand, how you are related, your dates, where you will stay and who will pay. NeoCAN then reviews your documents and helps prepare the Visitor Visa application. Aman explains who submits it and tells you what to provide and sign."
+        "a": "Tell him who you are visiting, their status in New Zealand, how you are related, your dates, where you will stay and who will pay. NeoCAN then reviews your documents and helps prepare the Visitor Visa application. Aman tells you who will submit it."
       },
       {
         "q": "Do I need a visa to visit New Zealand on an Indian passport?",
@@ -703,7 +703,7 @@ export const countryExtras: Record<string, CountryExtra> = {
       },
       {
         "q": "I’m visiting family in the Netherlands. What does my host need to give me?",
-        "a": "Netherlands Worldwide publishes a checklist for visiting family and friends in India, and it lists what your host must provide. Read it with your host. NeoCAN then reviews your documents and helps prepare the visa application. Aman explains who submits it and tells you what to provide and sign."
+        "a": "Netherlands Worldwide publishes a checklist for visiting family and friends in India, and it lists what your host must provide. Read it with your host. NeoCAN then reviews your documents and helps prepare the visa application. Aman tells you who will submit it."
       }
     ],
     "official": [
