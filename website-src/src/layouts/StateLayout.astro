@@ -1,0 +1,89 @@
+---
+// State / UT applicant-location page. Not an office page: office details and directions stay on /locations/sri-ganganagar/.
+import PageLayout from './PageLayout.astro';
+import SectionHeading from '../components/SectionHeading.astro';
+import FAQAccordion from '../components/FAQAccordion.astro';
+import RelatedLinks from '../components/RelatedLinks.astro';
+import Button from '../components/Button.astro';
+import { business } from '../data/business';
+import { countries } from '../data/countries';
+import { roleAnswers, ROLES_HEADING } from '../data/applicationRoles';
+import type { StatePage } from '../data/states';
+interface Props { page: StatePage }
+const { page: p } = Astro.props;
+const wa = `${business.whatsapp}?text=${encodeURIComponent(p.whatsappText)}`;
+const roles = roleAnswers();
+---
+<PageLayout title={p.seoTitle} description={p.seoDescription} h1={p.h1} lead={p.lead} eyebrow={`Applicants in ${p.name}`} icon="pin"
+  crumbs={[{ label: 'Locations', href: '/locations/' }, { label: p.name, href: `/locations/${p.slug}/` }]}
+  cta={{ label: 'WhatsApp your visa enquiry', href: wa }} cta2={{ label: 'Call NeoCAN', href: `tel:${business.phone}` }}>
+  <section class="section">
+    <div class="container-x grid lg:grid-cols-[1.3fr_1fr] gap-10 items-start">
+      <div class="reveal">
+        <h2 class="t-section">{p.answerQ}</h2>
+        <div class="prose-neo mt-5">{p.answer.map((t) => <p>{t}</p>)}</div>
+        <div class="mt-6 flex flex-wrap gap-3">
+          <Button href={wa} external variant="primary" icon="whatsapp">WhatsApp your visa enquiry<span class="sr-only"> (opens in a new tab)</span></Button>
+          <Button href={`tel:${business.phone}`} variant="secondary" icon="phone">Call NeoCAN</Button>
+        </div>
+      </div>
+      <div class="reveal rounded-2xl bg-soft border border-line p-6 text-[.9375rem]">
+        <p class="font-display font-bold text-ink">NeoCAN office</p>
+        <p class="mt-2">{business.address.full}</p>
+        <p class="mt-1">{business.hours}</p>
+        <p class="mt-3">NeoCAN has no office in other {p.name} cities.</p>
+        <a class="link-arrow mt-2 py-3" href="/locations/sri-ganganagar/">Office details and directions</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-soft">
+    <div class="container-x">
+      <SectionHeading eyebrow="Your goal" title={`What are you planning from ${p.name}?`} />
+      <div class="mt-8 grid sm:grid-cols-2 gap-5">
+        {p.goals.map((g) => (
+          <div class="card p-5 reveal"><h3 class="font-display font-bold text-ink">{g.title}</h3><p class="mt-2 text-[.9375rem]">{g.text}</p><a class="link-arrow mt-1 py-3" href={g.href}>{g.label}</a></div>
+        ))}
+      </div>
+      <p class="mt-8 text-[.9375rem]">Each destination has its own guide with official steps:</p>
+      <ul class="mt-3 flex flex-wrap gap-2">{countries.map((c) => <li><a class="inline-block rounded-full border border-line px-4 py-2 text-sm font-semibold text-navy hover:bg-mist" href={`/countries/${c.slug}/`}>{c.name}</a></li>)}</ul>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container-x grid lg:grid-cols-2 gap-12">
+      <div class="reveal"><SectionHeading title={p.startTitle} /><ol class="mt-6 space-y-3 list-decimal pl-5">{p.startSteps.map((s) => <li>{s}</li>)}</ol></div>
+      <div class="reveal"><SectionHeading title={p.inPersonTitle} /><div class="prose-neo mt-5">{p.inPerson.map((t) => <p>{t}</p>)}</div></div>
+    </div>
+  </section>
+
+  <section class="section section-mist" id="who-does-what">
+    <div class="container-x">
+      <SectionHeading eyebrow="Your application" title={ROLES_HEADING} />
+      <div class="mt-8 grid gap-5 md:grid-cols-3">{roles.map((r) => <div class="card p-5 reveal"><h3 class="font-display font-bold text-ink">{r.q}</h3><p class="mt-2 text-[.9375rem]">{r.a}</p></div>)}</div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container-x grid lg:grid-cols-2 gap-12">
+      <div class="reveal"><SectionHeading title={p.ieltsTitle} /><div class="prose-neo mt-5">{p.ielts.map((t) => <p>{t}</p>)}</div></div>
+      <div class="reveal rounded-2xl bg-mist border border-line p-6 sm:p-8">
+        <h2 class="t-card !text-2xl">{p.firstTitle}</h2>
+        <ul class="ticks mt-4 space-y-2 text-[.9375rem]">{p.first.map((f) => <li>{f}</li>)}</ul>
+        <div class="mt-5"><Button href={wa} external variant="primary" icon="whatsapp">WhatsApp your visa enquiry<span class="sr-only"> (opens in a new tab)</span></Button></div>
+        <p class="mt-5 text-[.9375rem]"><strong>Payment.</strong> Before you pay, we’ll send you a written quote showing the total NeoCAN service fee, the charge for each stage, and any government, appointment or test fees you’ll pay separately. Read the <a class="underline text-brand-strong" href="/terms/#fees">fee terms</a> and the <a class="underline text-brand-strong" href="/terms/#refunds">refund rules</a>.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-soft"><div class="container-x max-w-4xl"><h2 class="t-card !text-2xl mb-5">Questions from applicants in {p.name}</h2><FAQAccordion items={p.faqs} schema /></div></section>
+
+  <section class="section"><div class="container-x"><RelatedLinks title="Related pages" links={[
+    { label: 'NeoCAN office in Sri Ganganagar', href: '/locations/sri-ganganagar/', note: 'Address, hours and directions' },
+    { label: 'All locations', href: '/locations/' },
+    { label: 'All services', href: '/services/' },
+    { label: 'Contact NeoCAN', href: '/contact/' },
+    { label: 'Prepare for a consultation', href: '/consultation/' },
+    { label: 'Terms of Service', href: '/terms/' },
+  ]} /></div></section>
+</PageLayout>

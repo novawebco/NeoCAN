@@ -1,7 +1,14 @@
 ---
 import CityLayout from '../../layouts/CityLayout.astro';
+import StateLayout from '../../layouts/StateLayout.astro';
 import { locations } from '../../data/locations';
-export function getStaticPaths() { return locations.map((l) => ({ params: { slug: l.slug }, props: { loc: l } })); }
-const { loc } = Astro.props;
+import { statePages } from '../../data/states';
+export function getStaticPaths() {
+  return [
+    ...locations.map((l) => ({ params: { slug: l.slug }, props: { loc: l, state: undefined } })),
+    ...Object.values(statePages).map((s) => ({ params: { slug: s.slug }, props: { loc: undefined, state: s } })),
+  ];
+}
+const { loc, state } = Astro.props;
 ---
-<CityLayout loc={loc} />
+{state ? <StateLayout page={state} /> : <CityLayout loc={loc!} />}
