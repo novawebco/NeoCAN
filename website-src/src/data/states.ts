@@ -114,9 +114,15 @@ export function pageValue(f: StateFacts): { strength: 'local-facts' | 'weak'; ad
   };
 }
 
+const nearText = (f: StateFacts): string => {
+  const parts = (f.near ?? []).map((slug) => allFacts.find((x) => x.slug === slug)).filter((x): x is StateFacts => !!x && x.ielts.length > 0).map((x) => x.name + ' (' + join(x.ielts.map((c) => c.city)) + ')');
+  return parts.length ? 'IELTS.org lists IDP Education India test centres in neighbouring ' + join(parts) + '. Check the IELTS.org test-centre finder for the centre that is nearest to you, and check dates, fees and formats with the test provider.' : '';
+};
+
 export function buildStatePage(f: StateFacts): StatePage {
   const nm = f.name; const short = f.short ?? nm;
   const hasIelts = f.ielts.length > 0;
+  const near = hasIelts ? '' : nearText(f);
   const firstTown = f.towns.split(/,| and /)[0].trim();
   const dutch = f.nlVfs ? 'For a Netherlands short-stay visa, the Netherlands government lists ' + (f.nlVfs.includes(' and ') ? 'VFS Global centres in ' : 'a VFS Global centre in ') + f.nlVfs + ' (page updated 19 October 2026).' : '';
   const mvv = f.nlPost ? 'For a Netherlands student visa (MVV), the IND decision letter says whether you apply at the Dutch embassy in New Delhi or at the consulate-general in Bangalore or Mumbai; ' + f.nlPost + ' is one of them.' : '';
@@ -129,7 +135,7 @@ export function buildStatePage(f: StateFacts): StatePage {
       : 'NeoCAN’s only office is in Sri Ganganagar, Rajasthan. If you live in ' + nm + ', for example in ' + f.towns + ', you can start with a call or WhatsApp message to Aman Maan.';
   const ieltsLocal = hasIelts
     ? 'IELTS.org lists test centres run by IDP Education India in ' + centreText(f) + '. They are third-party test centres, not NeoCAN offices. Check dates, fees and formats with the test provider before you book, including for other cities in ' + nm + ' (listings checked 16 November 2026).'
-    : 'To find the nearest IELTS test centre, use the IELTS.org test-centre finder or the test provider’s website. Check dates, fees and formats there, and check whether your visa route asks for IELTS for UKVI.';
+    : near || 'To find the nearest IELTS test centre, use the IELTS.org test-centre finder or the test provider’s website. Check dates, fees and formats there, and check whether your visa route asks for IELTS for UKVI.';
   const descExtra = hasIelts ? ' IELTS centres listed in ' + join(f.ielts.slice(0, 2).map((c) => c.city)) + '.' : '';
   let seoDescription = 'Live in ' + short + '? NeoCAN’s office is in Sri Ganganagar. Call or WhatsApp Aman Maan about study, visitor or tourist visas, PR and IELTS help.' + descExtra;
   if (seoDescription.length > 160) seoDescription = 'Live in ' + short + '? NeoCAN’s office is in Sri Ganganagar. Call or WhatsApp Aman Maan about study, visitor or tourist visa, PR and IELTS.';
@@ -137,7 +143,7 @@ export function buildStatePage(f: StateFacts): StatePage {
     { q: 'Can I start without visiting your office?', a: 'Yes. ' + MSG },
     { q: 'Does NeoCAN have an office in ' + firstTown + ' or my city?', a: 'No. NeoCAN’s only office is in Sri Ganganagar, Rajasthan, and there are no other offices or branches.' },
     { q: 'Where will I give biometrics or attend a visa interview?', a: 'It depends on your destination and visa route. Aman tells you which centre or embassy applies to your case and whether NeoCAN can book your appointment. Check the official page for your destination before you travel.' + ([mvv, extra].filter(Boolean).length ? ' ' + [mvv, extra].filter(Boolean).join(' ') : '') },
-    { q: 'Is there an IELTS test centre near me in ' + nm + '?', a: hasIelts ? 'IELTS.org lists IDP Education India test centres in ' + cityList(f) + '. They are third-party centres, not NeoCAN. Check ielts.org or the test provider for current centres, formats and dates. NeoCAN is not an IELTS test centre.' : 'Use the IELTS.org test-centre finder or the test provider’s website to find the nearest centre. NeoCAN is not an IELTS test centre, but you can ask Aman about IELTS preparation help.' },
+    { q: 'Is there an IELTS test centre near me in ' + nm + '?', a: hasIelts ? 'IELTS.org lists IDP Education India test centres in ' + cityList(f) + '. They are third-party centres, not NeoCAN. Check ielts.org or the test provider for current centres, formats and dates. NeoCAN is not an IELTS test centre.' : (near ? near + ' ' : 'Use the IELTS.org test-centre finder or the test provider’s website to find the nearest centre. ') + 'NeoCAN is not an IELTS test centre, but you can ask Aman about IELTS preparation help.' },
     ...ukviFaq(f),
     ...(f.nlVfs ? [{ q: 'Is there a VFS Global centre in ' + f.nlVfs.replace(/ and .*/, '') + ' for a Netherlands visa?', a: dutch + ' This covers Netherlands visas only; other countries use other centres. Aman tells you which one your route needs.' }] : []),
     { q: 'How will I know what I pay?', a: 'Before you pay, we’ll send you a written quote showing the total NeoCAN service fee, the charge for each stage, and any government, appointment or test fees you’ll pay separately. The refund rules are in the Terms.' },
@@ -183,6 +189,6 @@ const generated: Record<string, StatePage> = {};
 for (const f of allFacts) if (!(f.slug in handWritten)) generated[f.slug] = buildStatePage(f);
 // All 36 pages stay in the project. Production builds include only the pages released so far; set STATE_PAGES=all for local builds and audits.
 export const allStatePages: Record<string, StatePage> = { ...generated, ...handWritten };
-export const RELEASED_STATE_PAGES = ['rajasthan', 'maharashtra', 'andhra-pradesh', 'tamil-nadu', 'kerala', 'uttar-pradesh', 'delhi', 'gujarat', 'karnataka'];
+export const RELEASED_STATE_PAGES = ['rajasthan', 'maharashtra', 'andhra-pradesh', 'tamil-nadu', 'kerala', 'uttar-pradesh', 'delhi', 'gujarat', 'karnataka', 'haryana', 'telangana', 'west-bengal'];
 const includeAll = typeof process !== 'undefined' && process.env.STATE_PAGES === 'all';
 export const statePages: Record<string, StatePage> = includeAll ? allStatePages : Object.fromEntries(RELEASED_STATE_PAGES.map((k) => [k, allStatePages[k]]));
