@@ -6,7 +6,10 @@ import PageLayout from '../../layouts/PageLayout.astro';
 import Icon from '../../components/Icon.astro';
 import { locations } from '../../data/locations';
 import { business } from '../../data/business';
-import { statePages } from '../../data/states';
+import { statePages, stateTracker } from '../../data/states';
+const byName = (a: { name: string }, b: { name: string }) => a.name.localeCompare(b.name);
+const states = stateTracker.filter((s) => s.kind === 'State' && statePages[s.slug]).sort(byName);
+const uts = stateTracker.filter((s) => s.kind === 'Union Territory' && statePages[s.slug]).sort(byName);
 const [office] = locations;
 const hubFaqs = [
   { q: 'Does NeoCAN have an office in my city?', a: 'No. NeoCAN’s only office is in Sri Ganganagar, and there are no other offices or branches. You can still contact Aman Maan from anywhere in India by phone, WhatsApp or email.' },
@@ -29,13 +32,14 @@ const hubFaqs = [
         </div>
       </a>
 
-      {Object.values(statePages).length > 0 && (
-        <div class="mt-8">
-          <h2 class="t-card !text-2xl">Applicants by State or Union Territory</h2>
-          <p class="mt-2">These pages explain how applicants in each place can start with Aman Maan. They are not offices. A State or Union Territory page is published only when we can verify local information that changes your next step. If yours is not listed, this page covers you: call or WhatsApp Aman Maan from anywhere in India.</p>
-          <ul class="mt-4 flex flex-wrap gap-2">{Object.values(statePages).map((s) => <li><a class="inline-block rounded-full border border-line px-5 py-3 text-sm font-semibold text-navy hover:bg-mist" href={`/locations/${s.slug}/`}>{s.name}</a></li>)}</ul>
-        </div>
-      )}
+      <div class="mt-8">
+        <h2 class="t-card !text-2xl">Applicants by State or Union Territory</h2>
+        <p class="mt-2">Each page explains how applicants in that place can start with Aman Maan, what may need to be done in person, and the official details that apply there. They are not offices: NeoCAN’s only office is in Sri Ganganagar.</p>
+        <h3 class="mt-5 font-display font-bold text-ink">States</h3>
+        <ul class="mt-3 flex flex-wrap gap-2">{states.map((s) => <li><a class="inline-block rounded-full border border-line px-5 py-3 text-sm font-semibold text-navy hover:bg-mist" href={`/locations/${s.slug}/`}>{s.name}</a></li>)}</ul>
+        <h3 class="mt-6 font-display font-bold text-ink">Union Territories</h3>
+        <ul class="mt-3 flex flex-wrap gap-2">{uts.map((s) => <li><a class="inline-block rounded-full border border-line px-5 py-3 text-sm font-semibold text-navy hover:bg-mist" href={`/locations/${s.slug}/`}>{s.name}</a></li>)}</ul>
+      </div>
 
       <p class="mt-8">For enquiries from elsewhere in India, contact the Sri Ganganagar office to ask what discussion format is available.</p>
       <a href={business.maps} target="_blank" rel="noopener noreferrer" class="link-arrow mt-4">Google Maps directions →</a>
